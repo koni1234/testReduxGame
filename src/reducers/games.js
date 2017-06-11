@@ -1,10 +1,19 @@
 import { combineReducers } from 'redux'
-import { GAMES_LIST } from '../constants/ActionTypes'
+import { GAMES_LIST, SELECT_GAME } from '../constants/ActionTypes'
 
 const games = (state = {}, action) => {
   switch (action.type) {
     case GAMES_LIST:
       return action.games
+    default:
+      return state
+  }
+}
+
+const selectedGame = (state = {}, action) => {
+  switch (action.type) {
+    case SELECT_GAME: 
+			return action.selectedGame
     default:
       return state
   }
@@ -34,7 +43,8 @@ const byName = (state = {}, action) => {
 
 export default combineReducers({
   byName,
-	games
+	games,
+	selectedGame
 })
 
 export const getGame = (state, name) =>
@@ -42,3 +52,6 @@ export const getGame = (state, name) =>
 
 export const getGames = state =>
   state.games
+
+export const getSelectedGame = state =>
+  (state) ? state.selectedGame : ""

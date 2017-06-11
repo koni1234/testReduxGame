@@ -10,15 +10,12 @@
 //export default App
 import React from 'react'
 import Footer from './Footer'
-import AddTodo from '../containers/AddTodo'
+//import AddTodo from '../containers/AddTodo'
 import GamesListContainer from '../containers/GamesListContainer'
-import VisibleTodoList from '../containers/VisibleTodoList'
+//import VisibleTodoList from '../containers/VisibleTodoList'
 
 const App = () => (
   <div>
-    <AddTodo />
-    <VisibleTodoList />
-    <Footer />
 		<GamesListContainer />
   </div>
 )

@@ -1,4 +1,5 @@
 export const GAMES_LIST = 'GAMES_LIST'
+export const SELECT_GAME = 'SELECT_GAME'
 
 //export const CHECK_SESSION = 'CHECK_SESSION'
 //export const CHECK_SUBMIT_LOGIN_FORM = 'CHECK_SUBMIT_LOGIN_FORM'

@@ -16,8 +16,6 @@ import games from './games'
 
 
 export default combineReducers({
-  todos,
-	visibilityFilter,
   games
 })
 //
