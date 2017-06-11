@@ -1,10 +1,29 @@
+//import { combineReducers } from 'redux'
+//import user from './user'
+//import memory from './memory'
+//
+//const memoryApp = combineReducers({
+//  user,
+//  memory
+//})
+//
+//export default memoryApp
+
 import { combineReducers } from 'redux'
-import user from './user'
-import memory from './memory'
+import todos from './todos'
+import visibilityFilter from './visibilityFilter'
+import games from './games'
 
-const memoryApp = combineReducers({
-  user,
-  memory
+
+export default combineReducers({
+  todos,
+	visibilityFilter,
+  games
 })
-
-export default memoryApp
+//
+//const todoApp = combineReducers({
+//  todos,
+//  visibilityFilter
+//})
+//
+//export default todoApp

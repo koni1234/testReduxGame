@@ -1,10 +1,27 @@
+//import React from 'react'
+//import UserPanel from '../containers/UserPanel'
+//
+//const App = () => (
+//  <div>
+//    <UserPanel />
+//  </div>
+//)
+//
+//export default App
 import React from 'react'
-import UserPanel from '../containers/UserPanel'
+import Footer from './Footer'
+import AddTodo from '../containers/AddTodo'
+import GamesListContainer from '../containers/GamesListContainer'
+import VisibleTodoList from '../containers/VisibleTodoList'
 
 const App = () => (
   <div>
-    <UserPanel />
+    <AddTodo />
+    <VisibleTodoList />
+    <Footer />
+		<GamesListContainer />
   </div>
 )
 
 export default App
+
