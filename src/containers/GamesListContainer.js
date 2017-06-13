@@ -6,13 +6,14 @@ import { getGames , getSelectedGame } from '../reducers/games'
 import Game from '../components/Game'
 import GamesList from '../components/GamesList'
 
-const GamesListContainer = ({ games , selectGame }) => (
+const GamesListContainer = ({ games , selectedGame , selectGame }) => (
   <GamesList title="Games">
 	{games.map(game =>
       <Game
         key={game.name}
         name={game.name}
         thumb={game.thumb}
+        selected={(selectedGame === game.name) ? true : false}
 				onSelectGameClicked={() => selectGame(game.name)}
 			 />)}
   </GamesList>

@@ -10,10 +10,13 @@ const games = (state = {}, action) => {
   }
 }
 
-const selectedGame = (state = {}, action) => {
+export const selectedGame = (state = {}, action) => {
   switch (action.type) {
     case SELECT_GAME: 
-			return action.selectedGame
+			return {
+				...state,
+				selectedGame: action.selectedGame
+			}
     default:
       return state
   }
@@ -41,11 +44,10 @@ const byName = (state = {}, action) => {
   }
 } 
 
-export default combineReducers({
+export const gamesReducers = combineReducers({
   byName,
 	games,
-	selectedGame
-})
+});
 
 export const getGame = (state, name) =>
   state.byName[name]

@@ -10,13 +10,12 @@ export const getGames = () => dispatch => {
   storage.getGamesList(games => { dispatch(gamesList(games)) })
 }
 
-export const selectGame = game => (dispatch, getState) => {
-  if (getState().games.byName[game]) {
-		const { games } = getState()
+export const selectGame = selectedGame => (dispatch, getState) => {
+  if (getState().games.byName[selectedGame]) {
+		//const { games } = getState()
     dispatch({
 			type: types.SELECT_GAME,
-			selectedGame: game,
-			games
+			selectedGame
 		})
   }
 }
