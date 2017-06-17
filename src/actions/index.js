@@ -3,7 +3,7 @@ import storage from '../api/storage'
 
 const gamesList = games => ({
   type: types.GAMES_LIST,
-  games: games
+  games
 })
 
 export const getGames = () => dispatch => {
@@ -12,12 +12,25 @@ export const getGames = () => dispatch => {
 
 export const selectGame = selectedGame => (dispatch, getState) => {
   if (getState().games.byName[selectedGame]) {
-		//const { games } = getState()
     dispatch({
 			type: types.SELECT_GAME,
 			selectedGame
 		})
   }
+}
+
+export const selectGameMode = selectedGameMode => dispatch => {
+	dispatch({
+			type: types.SELECT_GAME_MODE,
+			selectedGameMode
+	})
+}
+
+export const selectGameDifficult = selectedGameDifficult => dispatch => {
+	dispatch({
+			type: types.SELECT_GAME_DIFFICULT,
+			selectedGameDifficult
+	})
 }
 
 

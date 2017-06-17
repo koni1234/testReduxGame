@@ -12,12 +12,11 @@
 import { combineReducers } from 'redux'
 import todos from './todos'
 import visibilityFilter from './visibilityFilter'
-import {gamesReducers as games, selectedGame} from './games'
+import games from './games'
 
 
 export default combineReducers({
-  games,
-	selectedGame
+  games
 })
 //
 //const todoApp = combineReducers({

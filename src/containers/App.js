@@ -8,11 +8,8 @@
 //)
 //
 //export default App
-import React from 'react'
-import Footer from './Footer'
-//import AddTodo from '../containers/AddTodo'
-import GamesListContainer from '../containers/GamesListContainer'
-//import VisibleTodoList from '../containers/VisibleTodoList'
+import React from 'react'  
+import GamesListContainer from './GamesListContainer'
 
 const App = () => (
   <div>

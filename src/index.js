@@ -1,3 +1,7 @@
+/*
+
+actiion -> reducer -> output componenti/contenitori
+*/
 //import React from 'react'
 //import { render } from 'react-dom'
 //import { Provider } from 'react-redux'
@@ -21,7 +25,7 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 //import todoApp from './reducers'
-import App from './components/App'
+import App from './containers/App'
 
 
 import thunk from 'redux-thunk'
