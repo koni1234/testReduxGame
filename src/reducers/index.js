@@ -10,13 +10,13 @@
 //export default memoryApp
 
 import { combineReducers } from 'redux'
-import todos from './todos'
+//import todos from './todos'
 import visibilityFilter from './visibilityFilter'
-import games from './games'
+import game from './game'
 
 
 export default combineReducers({
-  games
+  game
 })
 //
 //const todoApp = combineReducers({

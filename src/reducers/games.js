@@ -1,48 +1,14 @@
-import { combineReducers } from 'redux'
-import { GAMES_LIST, SELECT_GAME , SELECT_GAME_MODE , SELECT_GAME_DIFFICULT } from '../constants/ActionTypes'
+import { GAMES_LIST } from '../constants/ActionTypes'
 
 const initialState = {
-  games: [],
-	byName: {},
-	selectedGame: "",
-	selectedGameMode: "",
-	selectedGameDifficult: ""
+  allGames: [],
+	byName: {}
 }
 
-const games = (state = initialState.games, action) => {
+const allGames = (state = initialState.allGames, action) => {
   switch (action.type) {
     case GAMES_LIST:
-      return action.games
-    default:
-      return state
-  }
-}
-
-const selectedGame = (state = initialState.selectedGame, action) => {
-  switch (action.type) {
-    case SELECT_GAME: 
-			return action.selectedGame
-    default:
-      return state
-  }
-}
-
-const selectedGameMode = (state = initialState.selectedGameMode, action) => {
-  switch (action.type) {
-		case SELECT_GAME_MODE: 
-			return action.selectedGameMode
-    case SELECT_GAME: 
-			return initialState.selectedGameMode
-    default:
-      return state
-  }
-}
-const selectedGameDifficult = (state = initialState.selectedGameDifficult, action) => {
-  switch (action.type) {
-		case SELECT_GAME_DIFFICULT: 
-			return action.selectedGameDifficult
-    case SELECT_GAME: 
-			return initialState.selectedGameDifficult
+      return action.allGames
     default:
       return state
   }
@@ -53,7 +19,7 @@ const byName = (state = initialState.byName, action) => {
     case GAMES_LIST:
       return {
         ...state,
-        ...action.games.reduce((obj, game) => {
+        ...action.allGames.reduce((obj, game) => {
           obj[game.name] = game
           return obj
         }, {})
@@ -61,27 +27,18 @@ const byName = (state = initialState.byName, action) => {
     default:
       return state
   }
-} 
+}
 
-export default combineReducers({
-  byName,
-	games,
-	selectedGame,
-	selectedGameMode,
-	selectedGameDifficult
-})
+const games = (state = initialState, action) => {
+  switch (action.type) {
+    default:
+      return {
+        allGames: allGames(state.allGames, action),
+        byName: byName(state.byName, action)
+      }
+  }
+}
 
-//export const getGame = (state, name) =>
-//  state.byName[name]
+export const getAllGames = state => state.allGames
 
-export const getGames = state =>
-  state.games
-
-export const getSelectedGame = (state = initialState) =>
-  state.selectedGame
-
-export const getSelectedGameMode = (state = initialState) =>
-  state.selectedGameMode
-
-export const getSelectedGameDifficult = (state = initialState) =>
-  state.selectedGameDifficult
+export default games

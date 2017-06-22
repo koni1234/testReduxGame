@@ -1,9 +1,9 @@
 import * as types from '../constants/ActionTypes'
 import storage from '../api/storage'
 
-const gamesList = games => ({
+const gamesList = allGames => ({
   type: types.GAMES_LIST,
-  games
+  allGames
 })
 
 export const getGames = () => dispatch => {
@@ -11,7 +11,7 @@ export const getGames = () => dispatch => {
 }
 
 export const selectGame = selectedGame => (dispatch, getState) => {
-  if (getState().games.byName[selectedGame]) {
+  if (getState().game.games.byName[selectedGame]) {
     dispatch({
 			type: types.SELECT_GAME,
 			selectedGame
@@ -33,10 +33,17 @@ export const selectGameDifficult = selectedGameDifficult => dispatch => {
 	})
 }
 
+export const gameInit = game => dispatch => {
+	dispatch({
+			type: types.GAME_INIT,
+			game
+	})
+}
 
 
 
 
+/*
 let nextTodoId = 0
 export const addTodo = (text) => {
   return {
@@ -59,7 +66,7 @@ export const toggleTodo = (id) => {
     id
   }
 }
-
+*/
 //import storage from '../api/storage'
 //import * as types from '../constants/ActionTypes'
 
