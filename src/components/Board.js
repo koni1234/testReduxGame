@@ -16,6 +16,11 @@ const Board = ({ rows, cells }) => {
 }
 
 Board.propTypes = {
+	game: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    thumb: PropTypes.string,
+  	children: PropTypes.node
+  }),
   rows: PropTypes.string,
 	cells: PropTypes.string
 }

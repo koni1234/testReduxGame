@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux'
 import games, * as fromGames from './games'
 import board from './board'
-import { SELECT_GAME , SELECT_GAME_MODE , SELECT_GAME_DIFFICULT } from '../constants/ActionTypes'
+import { GAME_INIT, SELECT_GAME , SELECT_GAME_MODE , SELECT_GAME_DIFFICULT } from '../constants/ActionTypes'
 
 const initialState = {
 	selectedGame: "",
 	selectedGameMode: "",
-	selectedGameDifficult: ""
+	selectedGameDifficult: "",
+	gameStatus: ""
 }
 
 
@@ -41,17 +42,25 @@ const selectedGameDifficult = (state = initialState.selectedGameDifficult, actio
   }
 }
 
+const gameStatus = (state = initialState.gameStatus, action) => {
+  switch (action.type) {
+    case GAME_INIT: 
+			return "play"
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
 	games,
 	board,
 	selectedGame,
 	selectedGameMode,
-	selectedGameDifficult
-	
+	selectedGameDifficult	,
+	gameStatus
 })
 
 const getAllGames = state => {
-	const x = 2;
 	return fromGames.getAllGames(state.games)
 }
 
@@ -63,6 +72,9 @@ export const getSelectedGameMode = (state = initialState) =>
 
 export const getSelectedGameDifficult = (state = initialState) =>
   state.selectedGameDifficult
+
+export const getGameStatus = (state = initialState) =>
+  state.gameStatus
 
 export const getGamesList = state => getAllGames(state)
 

@@ -1,10 +1,9 @@
-import { combineReducers } from 'redux'
 import { GAME_INIT , SELECT_GAME , SELECT_GAME_MODE , SELECT_GAME_DIFFICULT } from '../constants/ActionTypes'
 
 const initialState = {
-	selectedGame: "",
-	selectedGameMode: "",
-	selectedGameDifficult: ""
+	game: "",
+	cells: "",
+	rows: ""
 }
 
 const board = (state = {}, action) => {
@@ -12,14 +11,12 @@ const board = (state = {}, action) => {
 		case SELECT_GAME:
 		case SELECT_GAME_MODE:
 		case SELECT_GAME_DIFFICULT:
+      return state
     case GAME_INIT:
-      return action
+      return action.game
     default:
       return state
   }
 }
 
-
-export default combineReducers({
-  board
-})
+export default board

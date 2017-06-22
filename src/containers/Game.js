@@ -2,15 +2,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { selectGame , selectGameMode , selectGameDifficult } from '../actions'
-import { getGamesList, getSelectedGame , getSelectedGameMode , getSelectedGameDifficult } from '../reducers/game'
+import { gameInit, selectGame , selectGameMode , selectGameDifficult } from '../actions'
+import { getGamesList, getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus } from '../reducers/game'
 import GameItem from '../components/GameItem' 
 import Button from '../components/Button' 
 import GamesList from '../components/GamesList'
 import Board from '../components/Board'
 
 
-const Game = ({ games, selectedGame , selectedGameMode , selectedGameDifficult , selectGame , selectGameMode, selectGameDifficult}) => {
+const Game = ({ games, selectedGame , selectedGameMode , selectedGameDifficult , selectGame , selectGameMode, selectGameDifficult, gameInit , gameStatus}) => {
 	
 	return (
 		<GamesList title="Games">
@@ -26,6 +26,9 @@ const Game = ({ games, selectedGame , selectedGameMode , selectedGameDifficult ,
 				btns.push(<Button key="getSelectedGameDifficultMedium" disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} onClick={() => selectGameDifficult("medium")} value="medium" />);
 				btns.push(<Button key="getSelectedGameDifficultHard" disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} onClick={() => selectGameDifficult("hard")} value="hard" />);
 			}
+			if(selectedGame === game.name && selectedGameMode && selectedGameDifficult && gameStatus == "" ) {
+				gameInit(game)
+			}
 			
 			return (<GameItem
 					key={game.name}
@@ -39,6 +42,7 @@ const Game = ({ games, selectedGame , selectedGameMode , selectedGameDifficult ,
 	)
 }
 
+
 Game.propTypes = {
   games: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -50,20 +54,24 @@ Game.propTypes = {
 	selectGameMode: PropTypes.func,
 	selectGameDifficult: PropTypes.func,
 	selectedGameMode: PropTypes.string,
-	selectedGameDifficult: PropTypes.string
+	selectedGameDifficult: PropTypes.string,
+	gameInit: PropTypes.func,
+	gameStatus: PropTypes.string
 }
 
 const mapStateToProps = state => ({
 		games: getGamesList(state.game),
 		selectedGame: getSelectedGame(state.game),
 		selectedGameMode: getSelectedGameMode(state.game),
-		selectedGameDifficult: getSelectedGameDifficult(state.game)
+		selectedGameDifficult: getSelectedGameDifficult(state.game),
+		gameStatus: getGameStatus(state.game)
 })
 
 const mapDispatchToProps = {
 	selectGame,
 	selectGameMode,
-	selectGameDifficult
+	selectGameDifficult,
+	gameInit
 }
 
 export default connect(

@@ -12,7 +12,7 @@ const Button = ({ disabled, onClick, value}) => {
 Button.propTypes = {
 	disabled: PropTypes.bool,
 	value: PropTypes.string.isRequired,
-  onClick: PropTypes.function
+  onClick: PropTypes.func
 }
 
 export default Button
