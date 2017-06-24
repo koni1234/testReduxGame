@@ -12,6 +12,14 @@ import Board from '../components/Board'
 
 class Game extends Component {
  
+  componentWillReceiveProps(nextProps) {
+		const { gameInit, selectedGame, selectedGameMode , selectedGameDifficult , gameStatus } = nextProps;
+		
+		if(selectedGame && selectedGameMode && selectedGameDifficult && gameStatus === "" ) {
+			gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )
+		}
+  }
+	
 	render() {
 		const { games, selectGame , selectGameMode , selectGameDifficult , selectedGame, selectedGameMode , selectedGameDifficult , gameStatus } = this.props;
 		
@@ -29,9 +37,6 @@ class Game extends Component {
 					btns.push(<Button key="getSelectedGameDifficultMedium" disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} onClick={() => selectGameDifficult("medium")} value="medium" />);
 					btns.push(<Button key="getSelectedGameDifficultHard" disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} onClick={() => selectGameDifficult("hard")} value="hard" />);
 				}
-				//if(selectedGame === game.name && selectedGameMode && selectedGameDifficult && gameStatus == "" ) {
-				//	gameInit(game)
-				//}
 
 				return (<GameItem
 						key={game.name}

@@ -32,17 +32,38 @@ export const selectGameDifficult = selectedGameDifficult => dispatch => {
 			selectedGameDifficult
 	})
 }
+ 
 
-export const gameInit = game => dispatch => {
+export const gameInit = ( selectedGame , selectedGameMode , selectedGameDifficult ) => (dispatch, getState) => {
+		let cells = (selectedGameDifficult === "easy") ? 3 : (selectedGameDifficult === "medium") ? 4 : 5;
+		let rows = (selectedGameDifficult === "easy") ? 4 : (selectedGameDifficult === "medium") ? 5 : 6; 
+		let game = getState().game.games.byName[selectedGame]
+	
+		let squares = [];
+		let sortedData = game.data.sort(function() { return 0.5 - Math.random() });
+	
+		for(let x = 0, y ; x<( rows * cells); x++) {
+			y = ( 1+x> ( rows * cells)/2) ? 1+x - (rows * cells)/2 : 1+x ;
+			squares[x] = {
+					key: x,
+					value: y,
+					visible: false,
+					found: false,
+					firstView: false,
+					data: sortedData[y - 1]
+			}
+		}
 	dispatch({
-			type: types.GAME_INIT,
-			game
+		type: types.GAME_INIT,
+		board: { cells:cells,
+			rows:rows,
+			squares:squares
+					 }	
 	})
 }
 
 
-
-
+//const boundCompleteTodo = index => dispatch(completeTodo(index))
 /*
 let nextTodoId = 0
 export const addTodo = (text) => {

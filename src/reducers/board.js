@@ -13,7 +13,7 @@ const board = (state = {}, action) => {
 		case SELECT_GAME_DIFFICULT:
       return state
     case GAME_INIT:
-      return action.game
+      return action.board
     default:
       return state
   }
