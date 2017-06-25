@@ -20,8 +20,20 @@ class Game extends Component {
 		}
   }
 	
+	renderBoard() {
+		return (
+			<Board />
+		)
+	}
+	
 	render() {
 		const { games, selectGame , selectGameMode , selectGameDifficult , selectedGame, selectedGameMode , selectedGameDifficult , gameStatus } = this.props;
+			
+		if(gameStatus === "play") {
+		//	return (
+			//	this.renderBoard()
+				//)
+		}
 		
 		return(
 			<GamesList title="Games">
