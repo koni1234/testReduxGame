@@ -8,14 +8,16 @@ import Square from './Square'
 class Board extends Component {
 	
 	render() {
-		const { cells , rows } = this.props;
+		const { cells , rows ,squares } = this.props;
 		let output = [];
 		for(let i = 0; i<rows; i++) {
 				let output2 = [];
 				for(let y = 0; y<cells; y++) {
-					output2.push(<Square>asd</Square>);
+					output2.push(<Square key={"square-"+(y+(i*cells))} found={squares[(y+(i*cells))].found} visible={squares[(y+(i*cells))].visible} data={squares[(y+(i*cells))].data} value={squares[(y+(i*cells))].value} />);
 				}
-				output.push(<Row>{output2}</Row>);
+		//			clicked={(this.state.lastClickedSquare === i ) ? true : false}
+		//  onClick={() => this.handleClick(i)} 
+				output.push(<Row key={"row-"+i}>{output2}</Row>);
 		}
   
 		return(<div>{output}</div>)
@@ -28,7 +30,10 @@ Board.propTypes = {
 		visible: PropTypes.bool,
 		found: PropTypes.bool,
 		firstView: PropTypes.bool,
-  	data: PropTypes.node
+  	data: PropTypes.shape({
+			name: PropTypes.name,
+			image: PropTypes.image
+		})
   })),
   rows: PropTypes.number,
 	cells: PropTypes.number
