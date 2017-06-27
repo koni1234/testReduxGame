@@ -2460,8 +2460,8 @@
     margin: auto;
     width: 100%; }
   .games span {
-    position: absolute;
     z-index: 1;
+    position: absolute;
     margin: auto;
     left: 0;
     font-size: 6vh;
@@ -2474,9 +2474,8 @@
     color: white; }
     .games button:focus {
       outline: none; }
-    .games button:hover {
-      color: gold; }
   .games .gameSelection {
+    z-index: 2;
     background: transparent;
     opacity: 0;
     margin: 0;
@@ -2489,6 +2488,7 @@
     overflow: hidden; }
   .games .gameDifficultSelection,
   .games .gameModeSelection {
+    z-index: 2;
     transform: translate3d(0, 0, 0);
     position: absolute;
     top: 0;
@@ -2496,7 +2496,6 @@
     margin: 0;
     width: 100%;
     height: 20vh;
-    z-index: 1;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -2520,6 +2519,9 @@
         display: block;
         font-family: FontAwesome;
         font-size: 10vh; }
+      .games .gameDifficultSelection button:hover,
+      .games .gameModeSelection button:hover {
+        color: gold; }
 
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
