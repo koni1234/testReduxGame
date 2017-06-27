@@ -29,25 +29,65 @@ class Game extends Component {
 	render() {
 		const { games, selectGame , selectGameMode , selectGameDifficult , selectedGame, selectedGameMode , selectedGameDifficult , gameStatus } = this.props;
 			
-		if(gameStatus === "play") {
-		//	return (
-			//	this.renderBoard()
-				//)
-		}
-		
 		return(
 			<GamesList title="Games">
 			{games.map(game => {
 				let btns = [];
-				btns.push(<Button key="selectGame" disabled={(selectedGame === game.name) ? true : false} onClick={() => selectGame(game.name)} value="Select Game"/>);
+				let animation = "";
+				
+				btns.push(<Button 
+					key="selectGame" 
+					className={"gameSelection"}
+					disabled={(selectedGame === game.name) ? true : false} 
+					onClick={() => selectGame(game.name)} 
+					value={game.name}
+				/>);
 				if(selectedGame === game.name) {
-					btns.push(<Button key="getSelectedGameModeTime" disabled={(selectedGameMode && selectedGame === game.name) ? true : false} onClick={() => selectGameMode("time")} value="time" />);
-					btns.push(<Button key="getSelectedGameModeFree" disabled={(selectedGameMode && selectedGame === game.name) ? true : false} onClick={() => selectGameMode("free")} value="free" />);
+					animation = ( selectedGameMode ) ? "animated slideOutLeft" : "animated fadeIn";
+					
+					btns.push(<div key="renderGetSelectedGameMode" className={"gameModeSelection " + animation}>
+						<Button 
+							key="getSelectedGameModeTime" 
+							className="button time fa fa-clock-o"
+							disabled={(selectedGameMode && selectedGame === game.name) ? true : false} 
+							onClick={() => selectGameMode("time")} 
+							value="time" 
+						/>
+						<Button 
+							key="getSelectedGameModeFree" 
+							className="button free fa fa-flash"
+							disabled={(selectedGameMode && selectedGame === game.name) ? true : false} 
+							onClick={() => selectGameMode("free")} 
+						value="free" 
+						/>
+					</div>);
 				}
 				if(selectedGame === game.name && selectedGameMode) {
-					btns.push(<Button key="getSelectedGameDifficultEasy" disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} onClick={() => selectGameDifficult("easy")} value="easy" />);
-					btns.push(<Button key="getSelectedGameDifficultMedium" disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} onClick={() => selectGameDifficult("medium")} value="medium" />);
-					btns.push(<Button key="getSelectedGameDifficultHard" disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} onClick={() => selectGameDifficult("hard")} value="hard" />);
+					animation = ( selectedGameDifficult ) ? "animated slideOutLeft" : "animated slideInRight";
+					
+					btns.push(<div key="renderGetSelectedGameDifficult" className={"gameDifficultSelection " + animation}>
+						<Button 
+							key="getSelectedGameDifficultEasy" 
+							className="button easy fa fa-th-large"
+							disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} 
+							onClick={() => selectGameDifficult("easy")} 
+							value="easy" 
+						/>
+						<Button 
+							key="getSelectedGameDifficultMedium" 
+							className="button easy fa fa-th"
+							disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} 
+							onClick={() => selectGameDifficult("medium")} 
+							value="medium" 
+						/>
+						<Button 
+							key="getSelectedGameDifficultHard" 
+							className="button easy fa fa-th"
+							disabled={(selectedGameDifficult && selectedGame === game.name) ? true : false} 
+							onClick={() => selectGameDifficult("hard")} 
+							value="hard" 
+						/>
+					</div>);
 				}
 
 				return (<GameItem

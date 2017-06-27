@@ -1,31 +1,9 @@
-/*
-
-actiion -> reducer -> output componenti/contenitori
-*/
-//import React from 'react'
-//import { render } from 'react-dom'
-//import { Provider } from 'react-redux'
-//import { createStore } from 'redux'
-//import memoryApp from './reducers'
-//import App from './components/App'
-//import registerServiceWorker from './registerServiceWorker';
-//
-//let store = createStore(memoryApp)
-//
-//render(
-//  <Provider store={store}>
-//    <App />
-//  </Provider>,
-//  document.getElementById('root')
-//)
-//registerServiceWorker();
-
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
-//import todoApp from './reducers'
 import App from './containers/App'
+import './css/style.css'
 
 
 import thunk from 'redux-thunk'
