@@ -1,8 +1,10 @@
-import { GAME_INIT } from '../constants/ActionTypes'
+import { GAME_INIT , CLICK_SQUARE } from '../constants/ActionTypes'
 
 const initialState = { 
 		rows:0,
 		cells:0,
+		visibleSquare:-1,
+		clickedSquare:-1,
 		squares:[] 
 }
 
@@ -10,7 +12,11 @@ const board = (state = initialState, action) => {
   switch (action.type) {
     case GAME_INIT:
       return action.board
-    default:
+		case CLICK_SQUARE:
+			return Object.assign({}, state, {
+        clickedSquare: action.clickedSquare
+      })
+		default:
       return state
   }
 }
@@ -26,4 +32,11 @@ export const getCells = (state = initialState) => {
 
 export const getSquares = (state = initialState) =>{
   return state.squares
+}
+
+export const getClickedSquare = (state = initialState) =>{
+  return state.clickedSquare
+}
+export const getVisibleSquare = (state = initialState) =>{
+  return state.visibleSquare
 }

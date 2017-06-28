@@ -1,18 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
-class Square extends Component {
-	
-	render() {
-		const { value , found , visible , data } = this.props;
-
+const Square = ({ value , found , visible , data , onClick }) => {
+	 
+/*onClick}*/
 		return (
-			<div>
+			<button className="square" onClick={onClick}>
 				<span className={""}>{data.name}</span>
 				<img className={""} src={data.image} alt={data.name}/>
-			</div>
+			</button>
 		)
-	}
 }
 
 Square.propTypes = {
@@ -22,7 +19,8 @@ Square.propTypes = {
 	data: PropTypes.shape({
 		name: PropTypes.string,
 		image: PropTypes.string
-	})
+	}),
+	onClick: PropTypes.func
 }
 
 export default Square

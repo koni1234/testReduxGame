@@ -65,6 +65,12 @@ export const gameInit = ( selectedGame , selectedGameMode , selectedGameDifficul
 	})
 }
 
+export const clickSquare = squareId => dispatch => {
+	dispatch({
+			type: types.CLICK_SQUARE,
+			clickedSquare: squareId
+	})
+}
 //import storage from '../api/storage'
 //import * as types from '../constants/ActionTypes'
 

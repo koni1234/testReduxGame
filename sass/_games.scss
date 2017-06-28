@@ -1,3 +1,12 @@
+.gamesWrapper {
+	display: none;
+	
+	&.active {
+		display: block;
+		z-index: 2;
+	}
+}
+
 .games {
 	position: relative;
 	transform: translate3d(0, 0, 0);
@@ -38,7 +47,7 @@
     text-shadow: black 1px 1px 4px;
 	}
 
-	button{
+	button {
 		color: white;
 		
 		&:focus {

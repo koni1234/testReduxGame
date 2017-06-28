@@ -6,8 +6,7 @@ import { gameInit, selectGame , selectGameMode , selectGameDifficult } from '../
 import { getGamesList, getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus } from '../reducers/game'
 import GameItem from '../components/GameItem' 
 import Button from '../components/Button' 
-import GamesList from '../components/GamesList'
-import Board from '../components/Board'
+import GamesList from '../components/GamesList' 
 
 
 class Game extends Component {
@@ -20,17 +19,11 @@ class Game extends Component {
 		}
   }
 	
-	renderBoard() {
-		return (
-			<Board />
-		)
-	}
-	
 	render() {
 		const { games, selectGame , selectGameMode , selectGameDifficult , selectedGame, selectedGameMode , selectedGameDifficult , gameStatus } = this.props;
 			
 		return(
-			<GamesList title="Games">
+			<GamesList key="renderGamesList" className={(gameStatus === "play") ? "gamesWrapper animated fadeOut" : "gamesWrapper active animated fadeIn"}>
 			{games.map(game => {
 				let btns = [];
 				let animation = "";
