@@ -60,6 +60,17 @@
 			outline: none;
 		}
 		
+		&.visible {
+			&::after {
+				box-shadow: inset 1px 1px 20px 0px rgb(181, 204, 255);
+			}
+			
+			img {
+				transition: opacity 1s 0s ease;
+				opacity: 1;
+			}
+		}
+		
 		img {
 			opacity: 0;
 			transition: opacity .3s .9s ease;

@@ -3,7 +3,6 @@ import { GAME_INIT , CLICK_SQUARE } from '../constants/ActionTypes'
 const initialState = { 
 		rows:0,
 		cells:0,
-		visibleSquare:-1,
 		clickedSquare:-1,
 		squares:[] 
 }
@@ -13,8 +12,25 @@ const board = (state = initialState, action) => {
     case GAME_INIT:
       return action.board
 		case CLICK_SQUARE:
+			const squares = state.squares.slice();
+			if(state.clickedSquare >= 0 && squares[state.clickedSquare].value === squares[action.clickedSquare].value) {
+				squares[state.clickedSquare].found = true;
+				squares[action.clickedSquare].found = true;
+				squares[state.clickedSquare].visible = false;
+				squares[action.clickedSquare].visible = false;
+				action.clickedSquare = -1;
+			}
+			else if(state.clickedSquare >= 0) {
+				squares[state.clickedSquare].visible = false;
+				squares[action.clickedSquare].visible = false;
+				action.clickedSquare = -1;
+			}
+			else {
+				squares[action.clickedSquare].visible = true;
+			}
 			return Object.assign({}, state, {
-        clickedSquare: action.clickedSquare
+        clickedSquare: action.clickedSquare,
+				squares: squares
       })
 		default:
       return state
@@ -36,7 +52,4 @@ export const getSquares = (state = initialState) =>{
 
 export const getClickedSquare = (state = initialState) =>{
   return state.clickedSquare
-}
-export const getVisibleSquare = (state = initialState) =>{
-  return state.visibleSquare
 }

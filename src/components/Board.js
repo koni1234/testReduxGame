@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { clickSquare } from '../actions'
-import { getSquares , getVisibleSquare , getClickedSquare , getCells , getRows } from '../reducers/board'
+import { getSquares , getClickedSquare , getCells , getRows } from '../reducers/board'
 import Row from './Row'
 import Square from './Square'
 
@@ -48,7 +48,6 @@ Board.propTypes = {
   })),
   rows: PropTypes.number,
 	cells: PropTypes.number,
-	visibleSquare: PropTypes.number,
 	clickedSquare: PropTypes.number,
 	clickSquare: PropTypes.func
 }
@@ -58,7 +57,6 @@ const mapStateToProps = state => ({
 		squares: getSquares(state.board),
 	  cells: getCells(state.board),
 	  rows: getRows(state.board),
-		visibleSquare: getVisibleSquare(state.board),
 		clickedSquare: getClickedSquare(state.board)
 })
 

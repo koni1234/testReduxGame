@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Square = ({ value , found , visible , data , onClick }) => {
+	const className = (visible || found) ? "square visible" : "square";
 	 
-/*onClick}*/
 		return (
-			<button className="square" onClick={onClick}>
+			<button className={className} onClick={onClick}>
 				<span className={""}>{data.name}</span>
 				<img className={""} src={data.image} alt={data.name}/>
 			</button>
