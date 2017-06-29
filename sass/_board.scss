@@ -69,6 +69,24 @@
 				transition: opacity 1s 0s ease;
 				opacity: 1;
 			}
+			
+			span {
+				position: absolute;
+				bottom: 20%;
+				z-index: 1;
+				font-size: 4vw; //18px;
+				margin: auto;
+				left: 0;
+				right: 0;
+				opacity: 1;
+				padding: 0 .5em;
+				color: white;
+				text-shadow: black 1px 1px 4px;
+			}
+		}
+		
+		span {
+			opacity: 0;
 		}
 		
 		img {

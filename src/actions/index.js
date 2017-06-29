@@ -11,7 +11,7 @@ export const getGames = () => dispatch => {
 }
 
 export const selectGame = selectedGame => (dispatch, getState) => {
-  if (getState().game.games.byName[selectedGame]) {
+  if (getState().games.byName[selectedGame]) {
     dispatch({
 			type: types.SELECT_GAME,
 			selectedGame
@@ -38,7 +38,7 @@ export const gameInit = ( selectedGame , selectedGameMode , selectedGameDifficul
 	
 	let cells = (selectedGameDifficult === "easy") ? 3 : (selectedGameDifficult === "medium") ? 4 : 5;
 	let rows = (selectedGameDifficult === "easy") ? 4 : (selectedGameDifficult === "medium") ? 5 : 6; 
-	let game = getState().game.games.byName[selectedGame]
+	let game = getState().games.byName[selectedGame]
 	
 	let squares = [];
 	let sortedData = game.data.sort(function() { return 0.5 - Math.random() });
@@ -62,6 +62,12 @@ export const gameInit = ( selectedGame , selectedGameMode , selectedGameDifficul
 			rows:rows,
 			squares: squares
 		}	
+	})
+}
+
+export const gameWin = () => dispatch => {
+	dispatch({
+		type: types.GAME_WIN
 	})
 }
 

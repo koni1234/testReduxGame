@@ -1,10 +1,10 @@
 import React from 'react'  
-import Game from './Game'
-import Board from '../components/Board'
+import Games from './Games'
+import Board from './Board'
 
 const App = () => (
   <div>
-		<Game />
+		<Games />
 		<Board />
   </div>
 )

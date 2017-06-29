@@ -1,12 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { clickSquare } from '../actions'
-import { getSquares , getClickedSquare , getCells , getRows } from '../reducers/board'
-import Row from './Row'
-import Square from './Square'
+import { clickSquare , gameWin } from '../actions'
+import { getSquares , getFoundedSquares , getClickedSquare , getCells , getRows } from '../reducers/board'
+import Row from '../components/Row'
+import Square from '../components/Square'
 
 class Board extends Component {
+ 
+  componentWillReceiveProps(nextProps) {
+		const { gameWin , squares , foundedSquares } = nextProps;
+		
+		if(foundedSquares.length > 0 && squares.length === foundedSquares.length ) {
+			gameWin()
+		}
+  }
 	
 	render() {
 		const { cells , rows ,squares , clickSquare} = this.props;
@@ -26,8 +34,6 @@ class Board extends Component {
 						onClick={() => clickSquare( squareId )}
 					/>);
 				}
-		//			clicked={(this.state.lastClickedSquare === i ) ? true : false}
-		//  onClick={() => this.handleClick(i)} 
 				output.push(<Row key={"row-"+i}>{output2}</Row>);
 		}
   
@@ -49,19 +55,22 @@ Board.propTypes = {
   rows: PropTypes.number,
 	cells: PropTypes.number,
 	clickedSquare: PropTypes.number,
-	clickSquare: PropTypes.func
+	clickSquare: PropTypes.func,
+	gameWin: PropTypes.func
 }
 
 
 const mapStateToProps = state => ({
 		squares: getSquares(state.board),
+		foundedSquares: getFoundedSquares(state.board),
 	  cells: getCells(state.board),
 	  rows: getRows(state.board),
 		clickedSquare: getClickedSquare(state.board)
 })
 
 const mapDispatchToProps = {
-	clickSquare
+	clickSquare,
+	gameWin
 }
 
 export default connect(

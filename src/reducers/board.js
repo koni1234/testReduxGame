@@ -1,4 +1,4 @@
-import { GAME_INIT , CLICK_SQUARE } from '../constants/ActionTypes'
+import { GAME_INIT , GAME_WIN , CLICK_SQUARE } from '../constants/ActionTypes'
 
 const initialState = { 
 		rows:0,
@@ -11,6 +11,11 @@ const board = (state = initialState, action) => {
   switch (action.type) {
     case GAME_INIT:
       return action.board
+		case GAME_WIN:
+			return {
+				...state,
+				...initialState
+			}
 		case CLICK_SQUARE:
 			const squares = state.squares.slice();
 			if(state.clickedSquare >= 0 && squares[state.clickedSquare].value === squares[action.clickedSquare].value) {
@@ -48,6 +53,12 @@ export const getCells = (state = initialState) => {
 
 export const getSquares = (state = initialState) =>{
   return state.squares
+}
+
+export const getFoundedSquares = (state = initialState) =>{
+  return state.squares.filter( square => {
+		return square.found === true
+	})
 }
 
 export const getClickedSquare = (state = initialState) =>{

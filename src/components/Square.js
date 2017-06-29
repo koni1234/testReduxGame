@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 
 const Square = ({ value , found , visible , data , onClick }) => {
 	const className = (visible || found) ? "square visible" : "square";
+	const classNameSpan = (visible || found) ? "animated slideInUp" : "";
 	 
 		return (
 			<button className={className} onClick={onClick}>
-				<span className={""}>{data.name}</span>
-				<img className={""} src={data.image} alt={data.name}/>
+				<span className={classNameSpan}>{data.name}</span>
+				<img src={data.image} alt={data.name}/>
 			</button>
 		)
 }
