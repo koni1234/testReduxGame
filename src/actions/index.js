@@ -60,15 +60,21 @@ export const gameInit = ( selectedGame , selectedGameMode , selectedGameDifficul
 		board: { 
 			cells:cells,
 			rows:rows,
-			squares: squares
+			squares: sortedData
 		}	
 	})
 }
 
-export const gameWin = () => dispatch => {
-	dispatch({
-		type: types.GAME_WIN
-	})
+export const gameWin = () => dispatch => { 
+		dispatch({
+			type: types.GAME_WIN
+		}) 
+}
+
+export const notifyAllSquaresFounded = () => dispatch => { 
+		dispatch({
+			type: types.ALL_SQUARES_FOUNDED
+		}) 
 }
 
 export const clickSquare = squareId => dispatch => {

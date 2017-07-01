@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { clickSquare , gameWin } from '../actions'
-import { getSquares , getFoundedSquares , getClickedSquare , getCells , getRows } from '../reducers/board'
+import { clickSquare , notifyAllSquaresFounded } from '../actions'
+import { getStatus , getSquares , getFoundedSquares , getClickedSquare , getCells , getRows } from '../reducers/board'
 import Row from '../components/Row'
 import Square from '../components/Square'
 
 class Board extends Component {
  
   componentWillReceiveProps(nextProps) {
-		const { gameWin , squares , foundedSquares } = nextProps;
+		const { status, notifyAllSquaresFounded , squares , foundedSquares } = nextProps;
 		
-		if(foundedSquares.length > 0 && squares.length === foundedSquares.length ) {
-			gameWin()
+		if(status!=="allSquaresFounded" && foundedSquares.length > 0 && squares.length === foundedSquares.length ) {
+			notifyAllSquaresFounded()
 		}
   }
 	
@@ -56,13 +56,15 @@ Board.propTypes = {
 	cells: PropTypes.number,
 	clickedSquare: PropTypes.number,
 	clickSquare: PropTypes.func,
-	gameWin: PropTypes.func
+	status: PropTypes.string,
+	notifyAllSquaresFounded: PropTypes.func
 }
 
 
 const mapStateToProps = state => ({
 		squares: getSquares(state.board),
 		foundedSquares: getFoundedSquares(state.board),
+		status: getStatus(state.board),
 	  cells: getCells(state.board),
 	  rows: getRows(state.board),
 		clickedSquare: getClickedSquare(state.board)
@@ -70,7 +72,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
 	clickSquare,
-	gameWin
+	notifyAllSquaresFounded
 }
 
 export default connect(

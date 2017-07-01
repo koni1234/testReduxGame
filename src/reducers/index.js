@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux'
-import { GAME_INIT, GAME_WIN, SELECT_GAME , SELECT_GAME_MODE , SELECT_GAME_DIFFICULT } from '../constants/ActionTypes'
+import { GAME_INIT, ALL_SQUARES_FOUNDED, SELECT_GAME , SELECT_GAME_MODE , SELECT_GAME_DIFFICULT } from '../constants/ActionTypes'
 import games, * as fromGames from './games'
 import board from './board'
+import panel, * as fromPanel from './panel'
 
 const initialState = {
 	selectedGame: "",
 	selectedGameMode: "",
 	selectedGameDifficult: "",
 	gameStatus: "",
+	panelStatus:"",
 	games: {}
 }
 
@@ -46,7 +48,7 @@ const gameStatus = (state = initialState.gameStatus, action) => {
   switch (action.type) {
     case GAME_INIT: 
 			return "play"
-    case GAME_WIN: 
+    case ALL_SQUARES_FOUNDED: 
 			return "win"
     default:
       return state
@@ -56,12 +58,12 @@ const gameStatus = (state = initialState.gameStatus, action) => {
 export default combineReducers({
 	board,
 	games,
+	panel,
 	selectedGame,
 	selectedGameMode,
 	selectedGameDifficult	,
 	gameStatus
 })
-
 
 const getAllGames = state => {
 	return fromGames.getAllGames(state)
@@ -80,3 +82,8 @@ export const getGameStatus = (state = initialState) =>
   state.gameStatus
 
 export const getGamesList = (state = initialState) => getAllGames(state)
+
+export const getPanelStatus = () => {
+  if(fromPanel.getVisibility()) return "visible" 
+	return "hidden"
+}

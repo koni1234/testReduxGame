@@ -2,22 +2,14 @@
 import React , { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { gameInit, selectGame , selectGameMode , selectGameDifficult } from '../actions'
-import { getGamesList, getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus } from '../reducers/index'
+import { selectGame , selectGameMode , selectGameDifficult } from '../actions'
+import { getGamesList, getSelectedGame , getSelectedGameMode , getSelectedGameDifficult} from '../reducers/index'
 import GameItem from '../components/GameItem' 
 import Button from '../components/Button' 
 import GamesList from '../components/GamesList' 
 
 
 class Games extends Component {
- 
-  componentWillReceiveProps(nextProps) {
-		const { gameInit, selectedGame, selectedGameMode , selectedGameDifficult , gameStatus } = nextProps;
-		
-		if(selectedGame && selectedGameMode && selectedGameDifficult && gameStatus === "" ) {
-			gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )
-		}
-  }
 	
 	render() {
 		const { games, selectGame , selectGameMode , selectGameDifficult , selectedGame, selectedGameMode , selectedGameDifficult , gameStatus } = this.props;
@@ -113,18 +105,16 @@ Games.propTypes = {
 }
 
 const mapStateToProps = state => ({
-		games: getGamesList(state.games),
-		selectedGame: getSelectedGame(state),
-		selectedGameMode: getSelectedGameMode(state),
-		selectedGameDifficult: getSelectedGameDifficult(state),
-		gameStatus: getGameStatus(state)
+	games: getGamesList(state.games),
+	selectedGame: getSelectedGame(state),
+	selectedGameMode: getSelectedGameMode(state),
+	selectedGameDifficult: getSelectedGameDifficult(state)
 })
 
 const mapDispatchToProps = {
 	selectGame,
 	selectGameMode,
-	selectGameDifficult,
-	gameInit
+	selectGameDifficult
 }
 
 export default connect(
