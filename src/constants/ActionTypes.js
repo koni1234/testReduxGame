@@ -4,6 +4,7 @@ export const SELECT_GAME_MODE = 'SELECT_GAME_MODE'
 export const SELECT_GAME_DIFFICULT = 'SELECT_GAME_DIFFICULT'
 export const GAME_INIT = 'GAME_INIT'
 export const GAME_WIN = 'GAME_WIN'
+export const GAME_EXIT = 'GAME_EXIT'
 export const CLICK_SQUARE = 'CLICK_SQUARE'
 export const ALL_SQUARES_FOUNDED = 'ALL_SQUARES_FOUNDED'
 

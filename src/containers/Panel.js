@@ -15,15 +15,16 @@ class Panel extends Component {
   }*/
 	
 	render() {
-		const { visible} = this.props;
+		const { children, visible} = this.props;
 		const className= (visible) ? "panel active animated fadeIn" : "panel animated fadeOut"; 
   
-		return(<div className={className}>fine partita</div>)
+		return(<div className={className}>{children}</div>)
 	}
 }
 
 Panel.propTypes = {
-		visible: PropTypes.bool
+		visible: PropTypes.bool,
+		children: PropTypes.node
 }/*
 	squares: PropTypes.arrayOf(PropTypes.shape({
 		value: PropTypes.number,

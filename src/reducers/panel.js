@@ -1,4 +1,4 @@
-import { GAME_WIN } from '../constants/ActionTypes'
+import { GAME_WIN , GAME_EXIT } from '../constants/ActionTypes'
 
 const initialState = { 
 	visible: false
@@ -9,6 +9,10 @@ const panel = (state = initialState, action) => {
     case GAME_WIN:
 			return {
 				visible: true
+			}
+		case GAME_EXIT:
+			return {
+				visible: false
 			}
 		default:
       return state

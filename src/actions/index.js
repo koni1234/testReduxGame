@@ -54,6 +54,7 @@ export const gameInit = ( selectedGame , selectedGameMode , selectedGameDifficul
 			data: sortedData[y - 1]
 		}
 	}
+	sortedData = squares.sort(function() { return 0.5 - Math.random() });
 	
 	dispatch({
 		type: types.GAME_INIT,
@@ -63,6 +64,12 @@ export const gameInit = ( selectedGame , selectedGameMode , selectedGameDifficul
 			squares: sortedData
 		}	
 	})
+}
+
+export const gameExit = () => dispatch => { 
+		dispatch({
+			type: types.GAME_EXIT
+		}) 
 }
 
 export const gameWin = () => dispatch => { 

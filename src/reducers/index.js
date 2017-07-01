@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { GAME_INIT, ALL_SQUARES_FOUNDED, SELECT_GAME , SELECT_GAME_MODE , SELECT_GAME_DIFFICULT } from '../constants/ActionTypes'
+import { GAME_INIT, GAME_EXIT, ALL_SQUARES_FOUNDED, SELECT_GAME , SELECT_GAME_MODE , SELECT_GAME_DIFFICULT } from '../constants/ActionTypes'
 import games, * as fromGames from './games'
 import board from './board'
 import panel, * as fromPanel from './panel'
@@ -15,6 +15,8 @@ const initialState = {
 
 const selectedGame = (state = initialState.selectedGame, action) => {
   switch (action.type) {
+    case GAME_EXIT: 
+			return initialState.selectedGame
     case SELECT_GAME: 
 			return action.selectedGame
     default:
@@ -26,6 +28,7 @@ const selectedGameMode = (state = initialState.selectedGameMode, action) => {
   switch (action.type) {
 		case SELECT_GAME_MODE: 
 			return action.selectedGameMode
+    case GAME_EXIT: 
     case SELECT_GAME: 
 			return initialState.selectedGameMode
     default:
@@ -37,6 +40,7 @@ const selectedGameDifficult = (state = initialState.selectedGameDifficult, actio
   switch (action.type) {
 		case SELECT_GAME_DIFFICULT: 
 			return action.selectedGameDifficult
+    case GAME_EXIT: 
     case SELECT_GAME: 
 			return initialState.selectedGameDifficult
     default:
@@ -46,6 +50,8 @@ const selectedGameDifficult = (state = initialState.selectedGameDifficult, actio
 
 const gameStatus = (state = initialState.gameStatus, action) => {
   switch (action.type) {
+    case GAME_EXIT: 
+			return initialState.gameStatus
     case GAME_INIT: 
 			return "play"
     case ALL_SQUARES_FOUNDED: 

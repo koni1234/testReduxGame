@@ -1,4 +1,4 @@
-import { GAME_INIT , GAME_WIN , CLICK_SQUARE , ALL_SQUARES_FOUNDED } from '../constants/ActionTypes'
+import { GAME_INIT, GAME_EXIT , CLICK_SQUARE , ALL_SQUARES_FOUNDED } from '../constants/ActionTypes'
 
 const initialState = { 
 		rows:0,
@@ -15,16 +15,15 @@ const board = (state = initialState, action) => {
 				...state,
 				...action.board
 			}
+    case GAME_EXIT:
+			return {
+				...state,
+				...initialState
+			}
 		case ALL_SQUARES_FOUNDED:
 			return Object.assign({}, state, {
         status: "allSquaresFounded"
       })
-		case GAME_WIN:
-			return state
-			/*return {
-				...state,
-				...initialState
-			}*/
 		case CLICK_SQUARE:
 			const squares = state.squares.slice();
 			if(squares[state.clickedSquare] && squares[state.clickedSquare].value === squares[action.clickedSquare].value) {
