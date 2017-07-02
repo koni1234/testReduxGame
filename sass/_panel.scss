@@ -4,6 +4,8 @@
 	left: 0;
 	display: none;
 	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
 	height: 100%;
 	width: 100%;
 	-webkit-transform: translate3d(0, 0, 0);
@@ -13,4 +15,67 @@
 		display: flex;
 		z-index: 3;
 	}
+	
+	> div {
+		display: flex;
+	}
+	
+	span {
+		padding: 0 .5em;
+		width: 100%;
+		font-size: 40px;
+		color: gold;
+		text-shadow: black 1px 1px 4px;
+	}
+	
+	button {
+		padding: 0 .5em;
+		font-size: 24px;
+    font-family: inherit;
+    color: white;
+    text-shadow: black 1px 1px 4px;
+		background: none;
+		border: none;
+		outline: none;
+
+		&::before {
+				font-size: 40px;
+				font-family: FontAwesome;
+				display: block;
+		}
+		
+		&.close {
+			height: 8vh;
+			font-size: 0;
+			padding: 0 2.5vw;
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			&::before {
+				font-size: 5vh;
+			}
+		}
+	}
 }
+
+/*
+.status.win,
+.status.lose {
+    display: flex;
+	flex-wrap: wrap;
+    text-align: center;
+    position: absolute;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+	background: rgba(0,0,0,.5);
+}
+
+.status > 
+
+.status > span.counter {
+	font-size: 30px;
+}
+
+*/

@@ -4,6 +4,7 @@ const initialState = {
 		rows:0,
 		cells:0,
 		clickedSquare:-1,
+		lastClickedSquare: -1,
 		status: "",
 		squares:[] 
 }
@@ -12,7 +13,7 @@ const board = (state = initialState, action) => {
   switch (action.type) {
     case GAME_INIT:
 			return {
-				...state,
+				...initialState,
 				...action.board
 			}
     case GAME_EXIT:
@@ -26,6 +27,7 @@ const board = (state = initialState, action) => {
       })
 		case CLICK_SQUARE:
 			const squares = state.squares.slice();
+			const clickedSquare = action.clickedSquare;
 			if(squares[state.clickedSquare] && squares[state.clickedSquare].value === squares[action.clickedSquare].value) {
 				squares[state.clickedSquare].found = true;
 				squares[action.clickedSquare].found = true;
@@ -43,6 +45,7 @@ const board = (state = initialState, action) => {
 			}
 			return Object.assign({}, state, {
         clickedSquare: action.clickedSquare,
+        lastClickedSquare: clickedSquare,
 				squares: squares
       })
 		default:
@@ -75,4 +78,8 @@ export const getFoundedSquares = (state = initialState) =>{
 
 export const getClickedSquare = (state = initialState) =>{
   return state.clickedSquare
+}
+
+export const getLastClickedSquare = (state = initialState) =>{
+  return state.lastClickedSquare
 }

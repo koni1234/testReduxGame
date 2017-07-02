@@ -1,0 +1,47 @@
+.topbar {
+	height: 8vh;
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #999;
+	color: white;
+	background: #333;
+	
+	&.active {
+		display: flex;
+		z-index: 2;
+	}
+	
+	button {
+		color: inherit;
+		height: 8vh;
+		font-size: 0;
+		padding: 0 2.5vw;
+		background: none;
+		border: 0;
+		border-right: 1px solid rgba(255,255,255,.2);
+		outline: none;
+		
+		&::before {
+			font-size: 5vh;
+		}
+	}
+}
+/* 
+
+.topBar .points {
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    display: flex;
+}
+
+.topBar .points span {
+	font-size: 4vh;
+	color: gold;
+	padding: 0 2.5vw;
+}*/

@@ -2439,7 +2439,7 @@
 
 .board {
   position: absolute;
-  top: 0;
+  top: 8vh;
   left: 0;
   display: none;
   flex-direction: column;
@@ -2516,12 +2516,55 @@
       max-width: 100%;
       max-height: 100%; }
 
+.topbar {
+  height: 8vh;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #999;
+  color: white;
+  background: #333; }
+  .topbar.active {
+    display: flex;
+    z-index: 2; }
+  .topbar button {
+    color: inherit;
+    height: 8vh;
+    font-size: 0;
+    padding: 0 2.5vw;
+    background: none;
+    border: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    outline: none; }
+    .topbar button::before {
+      font-size: 5vh; }
+
+/* 
+
+.topBar .points {
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    display: flex;
+}
+
+.topBar .points span {
+	font-size: 4vh;
+	color: gold;
+	padding: 0 2.5vw;
+}*/
 .panel {
   position: absolute;
   top: 0;
   left: 0;
   display: none;
   flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
   height: 100%;
   width: 100%;
   -webkit-transform: translate3d(0, 0, 0);
@@ -2529,7 +2572,57 @@
   .panel.active {
     display: flex;
     z-index: 3; }
+  .panel > div {
+    display: flex; }
+  .panel span {
+    padding: 0 .5em;
+    width: 100%;
+    font-size: 40px;
+    color: gold;
+    text-shadow: black 1px 1px 4px; }
+  .panel button {
+    padding: 0 .5em;
+    font-size: 24px;
+    font-family: inherit;
+    color: white;
+    text-shadow: black 1px 1px 4px;
+    background: none;
+    border: none;
+    outline: none; }
+    .panel button::before {
+      font-size: 40px;
+      font-family: FontAwesome;
+      display: block; }
+    .panel button.close {
+      height: 8vh;
+      font-size: 0;
+      padding: 0 2.5vw;
+      position: absolute;
+      top: 0;
+      left: 0; }
+      .panel button.close::before {
+        font-size: 5vh; }
 
+/*
+.status.win,
+.status.lose {
+    display: flex;
+	flex-wrap: wrap;
+    text-align: center;
+    position: absolute;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+	background: rgba(0,0,0,.5);
+}
+
+.status > 
+
+.status > span.counter {
+	font-size: 30px;
+}
+
+*/
 .gamesWrapper {
   display: none; }
   .gamesWrapper.active {

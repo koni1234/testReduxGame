@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux'
-import { GAME_INIT, GAME_EXIT, ALL_SQUARES_FOUNDED, SELECT_GAME , SELECT_GAME_MODE , SELECT_GAME_DIFFICULT } from '../constants/ActionTypes'
+import * as ACTIONS from '../constants/ActionTypes'
 import games, * as fromGames from './games'
 import board from './board'
+import topbar, * as fromTopbar from './topbar'
 import panel, * as fromPanel from './panel'
 
 const initialState = {
@@ -15,9 +16,9 @@ const initialState = {
 
 const selectedGame = (state = initialState.selectedGame, action) => {
   switch (action.type) {
-    case GAME_EXIT: 
+    case ACTIONS.GAME_EXIT: 
 			return initialState.selectedGame
-    case SELECT_GAME: 
+    case ACTIONS.SELECT_GAME: 
 			return action.selectedGame
     default:
       return state
@@ -26,10 +27,10 @@ const selectedGame = (state = initialState.selectedGame, action) => {
 
 const selectedGameMode = (state = initialState.selectedGameMode, action) => {
   switch (action.type) {
-		case SELECT_GAME_MODE: 
+		case ACTIONS.SELECT_GAME_MODE: 
 			return action.selectedGameMode
-    case GAME_EXIT: 
-    case SELECT_GAME: 
+    case ACTIONS.GAME_EXIT: 
+    case ACTIONS.SELECT_GAME: 
 			return initialState.selectedGameMode
     default:
       return state
@@ -38,10 +39,10 @@ const selectedGameMode = (state = initialState.selectedGameMode, action) => {
 
 const selectedGameDifficult = (state = initialState.selectedGameDifficult, action) => {
   switch (action.type) {
-		case SELECT_GAME_DIFFICULT: 
+		case ACTIONS.SELECT_GAME_DIFFICULT: 
 			return action.selectedGameDifficult
-    case GAME_EXIT: 
-    case SELECT_GAME: 
+    case ACTIONS.GAME_EXIT: 
+    case ACTIONS.SELECT_GAME: 
 			return initialState.selectedGameDifficult
     default:
       return state
@@ -50,11 +51,14 @@ const selectedGameDifficult = (state = initialState.selectedGameDifficult, actio
 
 const gameStatus = (state = initialState.gameStatus, action) => {
   switch (action.type) {
-    case GAME_EXIT: 
+    case ACTIONS.GAME_EXIT: 
 			return initialState.gameStatus
-    case GAME_INIT: 
+    case ACTIONS.GAME_INIT: 
+    case ACTIONS.GAME_RESUME: 
 			return "play"
-    case ALL_SQUARES_FOUNDED: 
+    case ACTIONS.GAME_PAUSE: 
+			return "pause"
+    case ACTIONS.ALL_SQUARES_FOUNDED: 
 			return "win"
     default:
       return state
@@ -65,6 +69,7 @@ export default combineReducers({
 	board,
 	games,
 	panel,
+	topbar,
 	selectedGame,
 	selectedGameMode,
 	selectedGameDifficult	,
@@ -91,5 +96,10 @@ export const getGamesList = (state = initialState) => getAllGames(state)
 
 export const getPanelStatus = () => {
   if(fromPanel.getVisibility()) return "visible" 
+	return "hidden"
+}
+
+export const getTopbarStatus = () => {
+  if(fromTopbar.getVisibility()) return "visible" 
 	return "hidden"
 }

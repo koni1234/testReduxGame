@@ -1,26 +1,32 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { clickSquare , notifyAllSquaresFounded } from '../actions'
-import { getStatus , getSquares , getFoundedSquares , getClickedSquare , getLastClickedSquare , getCells , getRows } from '../reducers/board'
-import Row from '../components/Row'
-import Square from '../components/Square'
+import { gamePause } from '../actions'
+import { getVisibility } from '../reducers/topbar'
+import Button from '../components/Button' 
 
-class Board extends Component {
+class Topbar extends Component {
  
-  componentWillReceiveProps(nextProps) {
+  /*componentWillReceiveProps(nextProps) {
 		const { status, notifyAllSquaresFounded , squares , foundedSquares } = nextProps;
 		
 		if(status!=="allSquaresFounded" && foundedSquares.length > 0 && squares.length === foundedSquares.length ) {
 			notifyAllSquaresFounded()
 		}
-  }
+  }*/
 	
 	render() {
-		const { cells , rows ,squares , clickSquare , lastClickedSquare } = this.props;
-		const className= (squares.length) ? "board active animated fadeIn" : "board animated fadeOut";
-		
+		const { visible, gamePause } = this.props;
+		const className= (visible) ? "topbar active animated fadeIn" : "topbar animated fadeOut";
 		let output = [];
+		
+		output.push(<Button 
+							key="renderPauseBtn" 
+							className="button fa fa-pause-circle-o"
+							onClick={() => gamePause()} 
+							value="Pause" 
+						/>)
+		/*
 		for(let i = 0; i<rows; i++) {
 				let output2 = [];
 				for(let y = 0; y<cells; y++) {
@@ -36,14 +42,16 @@ class Board extends Component {
 					/>);
 				}
 				output.push(<Row key={"row-"+i}>{output2}</Row>);
-		}
+		}*/
   
 		return(<div className={className}>{output}</div>)
 	}
 }
 
-Board.propTypes = {
-	squares: PropTypes.arrayOf(PropTypes.shape({
+Topbar.propTypes = {
+	visible: PropTypes.bool,
+	gamePause: PropTypes.func
+	/*squares: PropTypes.arrayOf(PropTypes.shape({
 		value: PropTypes.number,
 		visible: PropTypes.bool,
 		found: PropTypes.bool,
@@ -59,26 +67,26 @@ Board.propTypes = {
 	lastClickedSquare: PropTypes.number,
 	clickSquare: PropTypes.func,
 	status: PropTypes.string,
-	notifyAllSquaresFounded: PropTypes.func
+	notifyAllSquaresFounded: PropTypes.func*/
 }
 
 
 const mapStateToProps = state => ({
-		squares: getSquares(state.board),
+	  visible: getVisibility(state.topbar)
+	/*	squares: getSquares(state.board),
 		foundedSquares: getFoundedSquares(state.board),
 		status: getStatus(state.board),
 	  cells: getCells(state.board),
 	  rows: getRows(state.board),
 		clickedSquare: getClickedSquare(state.board),
-		lastClickedSquare: getLastClickedSquare(state.board)
+		lastClickedSquare: getLastClickedSquare(state.board)*/
 })
 
 const mapDispatchToProps = {
-	clickSquare,
-	notifyAllSquaresFounded
+	gamePause
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Board)
+)(Topbar)

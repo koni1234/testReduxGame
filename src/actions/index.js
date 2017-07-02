@@ -72,6 +72,18 @@ export const gameExit = () => dispatch => {
 		}) 
 }
 
+export const gamePause = () => dispatch => { 
+		dispatch({
+			type: types.GAME_PAUSE
+		}) 
+}
+
+export const gameResume = () => dispatch => { 
+		dispatch({
+			type: types.GAME_RESUME
+		}) 
+}
+
 export const gameWin = () => dispatch => { 
 		dispatch({
 			type: types.GAME_WIN
