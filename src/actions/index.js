@@ -33,7 +33,6 @@ export const selectGameDifficult = selectedGameDifficult => dispatch => {
 	})
 }
  
-
 export const gameInit = ( selectedGame , selectedGameMode , selectedGameDifficult ) => (dispatch, getState) => {
 	
 	let cells = (selectedGameDifficult === "easy") ? 3 : (selectedGameDifficult === "medium") ? 4 : 5;
@@ -100,6 +99,37 @@ export const clickSquare = squareId => dispatch => {
 	dispatch({
 			type: types.CLICK_SQUARE,
 			clickedSquare: squareId
+	})
+}
+
+
+const incrementTimer = () => ({
+	type: types.INCREMENT_TIMER,
+	now: new Date().getTime()
+})
+
+export const startTimer = () => dispatch => {
+	let timer = setInterval( () => { dispatch(incrementTimer()) } , 1000 )
+	dispatch({
+    type: types.START_TIMER,
+    startTime: 0,
+    now: new Date().getTime(),
+		timer: timer
+	})
+}
+
+export const stopTimer = timer => (dispatch) => {
+	clearInterval(timer);
+	dispatch({
+    type: types.STOP_TIMER,
+    now: new Date().getTime()
+	})
+}
+
+export const resetTimer = () => dispatch => {
+	dispatch({
+    type: types.RESET_TIMER,
+    now: new Date().getTime()
 	})
 }
 //import storage from '../api/storage'

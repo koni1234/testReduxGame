@@ -1,25 +1,27 @@
+import { combineReducers } from 'redux'
 import { GAME_EXIT , GAME_INIT } from '../constants/ActionTypes'
+import timer, * as fromTimer from './timer'
 
 const initialState = { 
 	visible: false
 }
 
-const topbar = (state = initialState, action) => {
+const visible = (state = initialState.visible, action) => {
   switch (action.type) {
     case GAME_INIT:
-			return {
-				visible: true
-			}
+			return true
 		case GAME_EXIT:
-			return {
-				visible: false
-			}
+			return false
 		default:
       return state
   }
 }
 
-export default topbar
+//export default topbar
+export default combineReducers({
+	visible,
+	timer
+})
 
 export const getVisibility = (state = initialState) =>
   state.visible
