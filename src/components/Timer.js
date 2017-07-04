@@ -6,36 +6,33 @@ import { getTime , getTimer } from '../reducers/timer'
 
 class Timer extends Component { 
 
+	constructor(props) {
+    super(props)
+    this.state = {pause: false }
+  }
+	
 	componentDidMount(){
 		const { startTimer} = this.props;
 		startTimer()
 	}
 	
+	componentWillReceiveProps(nextProps) {
+		const { startTimer , stopTimer , timer } = nextProps;
+		const nextPause = nextProps.pause;
+		const { pause } = this.props;
+		
+		if(pause && !nextPause ) {
+			startTimer()
+		}
+		else if(!pause && nextPause ) {
+			stopTimer(timer)
+		}
+  }
+	
 	componentWillUnmount(){
 		const { stopTimer , timer } = this.props;
 		stopTimer(timer)
 	}
-	/*
-	checkTimer() {
-		const pause = this.state.pause;
-		const startTime = this.state.startTime;
-		const time = this.state.time;
-			
-		if(!pause && startTime > 0 ) {
-			let newTime = time + 1; 
-			let looser = false;
-			
-			if(looser) {
-				this.setState({
-					gameStatus: "lose",
-					time: newTime 
-				});
-			}
-			else {
-				this.setState({time: newTime });
-			}
-		}
-	} */
 	
 	render() {
 		const { time } = this.props;
@@ -47,7 +44,6 @@ class Timer extends Component {
 					 
 Timer.propTypes = {
 		pause: PropTypes.bool,
-		startTime: PropTypes.number,
 		time: PropTypes.number,
 		timer: PropTypes.number,
 		startTimer: PropTypes.func,
@@ -55,21 +51,14 @@ Timer.propTypes = {
 }
 
 const mapStateToProps = state => ({
-	 time: getTime(state.topbar.timer),
-	 timer: getTimer(state.topbar.timer)
-})/*
-		squares: getSquares(state.board),
-		foundedSquares: getFoundedSquares(state.board),
-	  cells: getCells(state.board),
-	  rows: getRows(state.board),
-		clickedSquare: getClickedSquare(state.board)*/
+	 time: getTime(state.timer),
+	 timer: getTimer(state.timer)
+})
 
 const mapDispatchToProps = {
 	startTimer,
 	stopTimer
-}/*
-	clickSquare,
-	gameWin*/
+}
 
 export default connect(
   mapStateToProps,

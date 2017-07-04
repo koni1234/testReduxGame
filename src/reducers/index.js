@@ -4,6 +4,7 @@ import games, * as fromGames from './games'
 import board from './board'
 import topbar, * as fromTopbar from './topbar'
 import panel, * as fromPanel from './panel'
+import timer, * as fromTimer from './timer'
 
 const initialState = {
 	selectedGame: "",
@@ -73,7 +74,8 @@ export default combineReducers({
 	selectedGame,
 	selectedGameMode,
 	selectedGameDifficult	,
-	gameStatus
+	gameStatus,
+	timer
 })
 
 const getAllGames = state => {

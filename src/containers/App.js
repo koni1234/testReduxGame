@@ -1,8 +1,9 @@
 import React , { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { gameInit , gameWin , gameExit , gameResume } from '../actions'
+import { gameInit , gameWin , gameExit , gameResume , resetTimer } from '../actions'
 import { getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus, getPanelStatus } from '../reducers/index'
+import { getTimer } from '../reducers/timer'
 import Games from './Games'
 import Board from './Board'
 import Topbar from './Topbar'
@@ -23,7 +24,7 @@ class App extends Component {
   }
 	
 	render() { 
-		const { gameResume , gameStatus , gameInit, gameExit, selectedGame, selectedGameMode , selectedGameDifficult } = this.props;
+		const { timer , resetTimer , gameResume , gameStatus , gameInit, gameExit, selectedGame, selectedGameMode , selectedGameDifficult } = this.props;
 		const panelContent = [];
 		
 		if(gameStatus === "win") {
@@ -60,7 +61,10 @@ class App extends Component {
 						<Button 
 							key="renderRestartBtn" 
 							className="button fa fa-repeat"
-							onClick={() => gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )} 
+							onClick={() => {
+									resetTimer(timer)
+									gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )	 
+							}} 
 							value="Restart" 
 						/>
 						<Button 
@@ -93,8 +97,10 @@ Games.propTypes = {
 	gameWin: PropTypes.func,
 	gameExit: PropTypes.func,
 	gameResume: PropTypes.func,
+	resetTimer: PropTypes.func,
 	gameStatus: PropTypes.string,
-	panelStatus: PropTypes.string
+	panelStatus: PropTypes.string,
+	timer: PropTypes.number
 }
 
 const mapStateToProps = state => ({
@@ -102,14 +108,16 @@ const mapStateToProps = state => ({
 	selectedGameMode: getSelectedGameMode(state),
 	selectedGameDifficult: getSelectedGameDifficult(state),
 	gameStatus: getGameStatus(state),
-	panelStatus: getPanelStatus(state)
+	panelStatus: getPanelStatus(state),
+	timer: getTimer(state.timer)
 })
 
 const mapDispatchToProps = {
 	gameInit,
 	gameWin,
 	gameExit,
-	gameResume
+	gameResume,
+	resetTimer
 }
 
 export default connect(

@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 import { GAME_EXIT , GAME_INIT } from '../constants/ActionTypes'
-import timer, * as fromTimer from './timer'
 
 const initialState = { 
 	visible: false
@@ -19,8 +18,7 @@ const visible = (state = initialState.visible, action) => {
 
 //export default topbar
 export default combineReducers({
-	visible,
-	timer
+	visible
 })
 
 export const getVisibility = (state = initialState) =>

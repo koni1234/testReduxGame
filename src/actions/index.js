@@ -112,7 +112,6 @@ export const startTimer = () => dispatch => {
 	let timer = setInterval( () => { dispatch(incrementTimer()) } , 1000 )
 	dispatch({
     type: types.START_TIMER,
-    startTime: 0,
     now: new Date().getTime(),
 		timer: timer
 	})
@@ -126,7 +125,8 @@ export const stopTimer = timer => (dispatch) => {
 	})
 }
 
-export const resetTimer = () => dispatch => {
+export const resetTimer = timer => dispatch => {
+	clearInterval(timer);
 	dispatch({
     type: types.RESET_TIMER,
     now: new Date().getTime()
