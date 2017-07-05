@@ -1,35 +1,59 @@
 import React , { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { gameInit , gameWin , gameExit , gameResume , resetTimer } from '../actions'
-import { getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus } from '../reducers/index'
-import { getTimer } from '../reducers/timer'
+import { gameInit , gameLose, gameWin , gameExit , gameResume , resetTimer } from '../actions'
+import { getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus , getScore } from '../reducers/index'
+import { getTimer, getTime } from '../reducers/timer'
 import Games from './Games'
 import Board from './Board'
 import Topbar from './Topbar'
 import Panel from '../components/Panel'
+import Counter from '../components/Counter'
 import Button from '../components/Button' 
 
 class App extends Component {
  
   componentWillReceiveProps(nextProps) {
-		const { gameWin, gameInit , selectedGame, selectedGameMode , selectedGameDifficult , gameStatus , panelStatus } = nextProps;
+		const { gameLose , gameWin, gameInit , selectedGame, selectedGameMode , selectedGameDifficult } = nextProps;
+		const nextGameStatus = nextProps.gameStatus
+		const { gameStatus } = this.props;
 		
 		if(selectedGame && selectedGameMode && selectedGameDifficult && gameStatus === "" ) {
 			gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )
 		}
-		if(gameStatus === "win" && panelStatus !== "visible") {
+		if(nextGameStatus === "win" && gameStatus !== nextGameStatus) {
 			gameWin()
+		}
+		if(nextGameStatus === "lose" && gameStatus !== nextGameStatus) {
+			gameLose()
 		}
   }
 	
 	render() { 
-		const { timer , resetTimer , gameResume , gameStatus , gameInit, gameExit, selectedGame, selectedGameMode , selectedGameDifficult } = this.props;
+		const { time , score , timer , resetTimer , gameResume , gameStatus , gameInit, gameExit, selectedGame, selectedGameMode , selectedGameDifficult } = this.props;
 		const panelContent = [];
 		
-		if(gameStatus === "win") {
+		if(gameStatus === "win" || gameStatus === "lose") {
 			 panelContent.push(<Panel>
-					<span className="animated infinite pulse">Hai vinto!</span>
+					<span className="animated infinite pulse">{(gameStatus === "win") ? "Hai vinto!" : "Hai perso"}</span>
+			 		<Counter
+						from={time} 
+						units="seconds"
+						to={0} 
+						id="counter_inverse"
+						inverse={true}
+						className="animated fadeOut"
+						duration={2500}
+						refreshInterval={10}
+					/>
+					<Counter
+						from={0} 
+						className="animated zoomScaleIn"
+						to={score} 
+						units="points"
+						duration={2500}
+						refreshInterval={10}
+					/>
 					<div className={" "}>
 						<Button 
 							key="renderPlayAgainBtn" 
@@ -98,26 +122,32 @@ Games.propTypes = {
 	selectedGame: PropTypes.string,
 	selectedGameMode: PropTypes.string,
 	selectedGameDifficult: PropTypes.string,
+	score: PropTypes.number,
 	gameInit: PropTypes.func,
 	gameWin: PropTypes.func,
+	gameLose: PropTypes.func,
 	gameExit: PropTypes.func,
 	gameResume: PropTypes.func,
 	resetTimer: PropTypes.func,
 	gameStatus: PropTypes.string,
-	timer: PropTypes.number
+	timer: PropTypes.number,
+	time: PropTypes.number
 }
 
 const mapStateToProps = state => ({
 	selectedGame: getSelectedGame(state),
 	selectedGameMode: getSelectedGameMode(state),
 	selectedGameDifficult: getSelectedGameDifficult(state),
+	score: getScore(state),
 	gameStatus: getGameStatus(state),
-	timer: getTimer(state.timer)
+	timer: getTimer(state.timer),
+	time: getTime(state.timer)
 })
 
 const mapDispatchToProps = {
 	gameInit,
 	gameWin,
+	gameLose,
 	gameExit,
 	gameResume,
 	resetTimer

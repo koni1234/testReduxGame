@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { gamePause } from '../actions'
 import { getVisibility } from '../reducers/topbar'
-import { getGameStatus } from '../reducers/index'
+import { getGameStatus , getSelectedGameMode } from '../reducers/index'
 import Timer from '../components/Timer'
 import Score from '../components/Score'
 import Button from '../components/Button' 
@@ -11,7 +11,7 @@ import Button from '../components/Button'
 class Topbar extends Component {
 	
 	render() {
-		const { visible, gamePause , gameStatus } = this.props;
+		const { visible, gamePause , gameStatus, gameMode } = this.props;
 		const className= (visible) ? "topbar active animated fadeIn" : "topbar animated fadeOut";
 		let output = [];
 				
@@ -25,7 +25,11 @@ class Topbar extends Component {
 		output.push(<Score />)
 			
 		if(gameStatus && gameStatus !== "" ) {
-			output.push(<Timer pause={(gameStatus === "play" ) ? false : true }/>)
+			output.push(<Timer 
+				mode={(gameMode === "time") ? "countdown" : "timer"} 
+				startTime= {(gameMode === "time") ? 60 : 0 } 
+				pause={(gameStatus === "play" ) ? false : true }
+			/>)
 		}
 		
 		return(<div className={className}>{output}</div>)
@@ -35,13 +39,15 @@ class Topbar extends Component {
 Topbar.propTypes = {
 	visible: PropTypes.bool,
 	gamePause: PropTypes.func,
-	gameStatus: PropTypes.string
+	gameStatus: PropTypes.string,
+	gameMode: PropTypes.string
 }
 
 
 const mapStateToProps = state => ({
 	visible: getVisibility(state.topbar),
-	gameStatus: getGameStatus(state)
+	gameStatus: getGameStatus(state),
+	gameMode: getSelectedGameMode(state)
 })
 
 const mapDispatchToProps = {

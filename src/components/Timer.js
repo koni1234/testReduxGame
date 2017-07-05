@@ -1,28 +1,27 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { startTimer , stopTimer } from '../actions'
+import { startTimer , stopTimer , notifyTimeUp } from '../actions'
 import { getTime , getTimer } from '../reducers/timer'
 
 class Timer extends Component { 
 
-	constructor(props) {
-    super(props)
-    this.state = {pause: false }
-  }
-	
 	componentDidMount(){
-		const { startTimer} = this.props;
-		startTimer()
+		const { mode , startTimer , startTime} = this.props;
+		startTimer(mode , startTime)
 	}
 	
 	componentWillReceiveProps(nextProps) {
-		const { startTimer , stopTimer , timer } = nextProps;
+		const { mode, startTimer , stopTimer , notifyTimeUp , timer , time } = nextProps;
 		const nextPause = nextProps.pause;
 		const { pause } = this.props;
 		
-		if(pause && !nextPause ) {
-			startTimer()
+		if(mode ==="countdown" && time <= 0) {
+			stopTimer(timer)
+			notifyTimeUp()
+		}
+		else if(pause && !nextPause ) {
+			startTimer( mode )
 		}
 		else if(!pause && nextPause ) {
 			stopTimer(timer)
@@ -44,10 +43,13 @@ class Timer extends Component {
 					 
 Timer.propTypes = {
 		pause: PropTypes.bool,
+		mode: PropTypes.string,
 		time: PropTypes.number,
 		timer: PropTypes.number,
+		startTime: PropTypes.number,
 		startTimer: PropTypes.func,
-		stopTimer: PropTypes.func
+		stopTimer: PropTypes.func,
+		notifyTimeUp: PropTypes.func
 }
 
 const mapStateToProps = state => ({
@@ -57,7 +59,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
 	startTimer,
-	stopTimer
+	stopTimer,
+	notifyTimeUp
 }
 
 export default connect(

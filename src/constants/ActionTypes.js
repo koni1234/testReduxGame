@@ -8,6 +8,7 @@ export const GAME_INIT = 'GAME_INIT'
 export const GAME_PAUSE = 'GAME_PAUSE'
 export const GAME_RESUME = 'GAME_RESUME'
 export const GAME_WIN = 'GAME_WIN'
+export const GAME_LOSE = 'GAME_LOSE'
 export const GAME_EXIT = 'GAME_EXIT'
 //board
 export const CLICK_SQUARE = 'CLICK_SQUARE'
@@ -15,7 +16,9 @@ export const SQUARES_FOUNDED = 'SQUARES_FOUNDED'
 export const ALL_SQUARES_FOUNDED = 'ALL_SQUARES_FOUNDED'
 //timer
 export const START_TIMER = 'START_TIMER'
+export const DECREMENT_TIMER = 'DECREMENT_TIMER'
 export const INCREMENT_TIMER = 'INCREMENT_TIMER'
+export const TIME_UP = 'TIME_UP'
 export const STOP_TIMER = 'STOP_TIMER'
 export const RESET_TIMER = 'RESET_TIMER'
 //counter 

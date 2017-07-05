@@ -60,6 +60,8 @@ const gameStatus = (state = initialState.gameStatus, action) => {
 			return "pause"
     case ACTIONS.ALL_SQUARES_FOUNDED: 
 			return "win"
+		case ACTIONS.TIME_UP:
+			return "lose"
     default:
       return state
   }

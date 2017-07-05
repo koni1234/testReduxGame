@@ -89,6 +89,12 @@ export const gameWin = () => dispatch => {
 		}) 
 }
 
+export const gameLose = () => dispatch => { 
+		dispatch({
+			type: types.GAME_LOSE
+		}) 
+}
+
 export const notifyAllSquaresFounded = () => dispatch => { 
 		dispatch({
 			type: types.ALL_SQUARES_FOUNDED
@@ -114,12 +120,24 @@ const incrementTimer = () => ({
 	now: new Date().getTime()
 })
 
-export const startTimer = () => dispatch => {
-	let timer = setInterval( () => { dispatch(incrementTimer()) } , 1000 )
+const decrementTimer = () => ({
+	type: types.DECREMENT_TIMER,
+	now: new Date().getTime()
+})
+
+export const notifyTimeUp = () => dispatch => {
+		dispatch({
+			type: types.TIME_UP
+		}) 
+}
+
+export const startTimer = ( mode , startTime ) => dispatch => {
+	let timer = (mode === "countdown") ? setInterval( () => { dispatch(decrementTimer()) } , 1000 ) : setInterval( () => { dispatch(incrementTimer()) } , 1000 )
 	dispatch({
     type: types.START_TIMER,
     now: new Date().getTime(),
-		timer: timer
+		timer: timer,
+		startTime
 	})
 }
 
