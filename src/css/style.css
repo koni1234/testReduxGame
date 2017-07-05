@@ -2542,21 +2542,23 @@
     outline: none; }
     .topbar button::before {
       font-size: 5vh; }
-
-/* 
-
-.topBar .points {
+  .topbar .timer {
+    justify-content: flex-end;
+    align-items: center;
+    display: flex; }
+    .topbar .timer span {
+      font-size: 5vh;
+      padding: 0 2.5vw; }
+  .topbar .score {
     justify-content: flex-end;
     align-items: center;
     flex-grow: 1;
-    display: flex;
-}
+    display: flex; }
+    .topbar .score span {
+      font-size: 4vh;
+      color: gold;
+      padding: 0 2.5vw; }
 
-.topBar .points span {
-	font-size: 4vh;
-	color: gold;
-	padding: 0 2.5vw;
-}*/
 .panel {
   position: absolute;
   top: 0;

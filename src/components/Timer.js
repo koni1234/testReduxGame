@@ -38,7 +38,7 @@ class Timer extends Component {
 		const { time } = this.props;
 		const className= "timer active animated fadeIn"  
   
-		return(<div className={className}>{time}</div>)
+		return(<div className={className}><span>{time}</span></div>)
 	}
 }
 					 

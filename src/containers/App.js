@@ -2,12 +2,12 @@ import React , { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { gameInit , gameWin , gameExit , gameResume , resetTimer } from '../actions'
-import { getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus, getPanelStatus } from '../reducers/index'
+import { getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus } from '../reducers/index'
 import { getTimer } from '../reducers/timer'
 import Games from './Games'
 import Board from './Board'
 import Topbar from './Topbar'
-import Panel from './Panel'
+import Panel from '../components/Panel'
 import Button from '../components/Button' 
 
 class App extends Component {
@@ -28,12 +28,16 @@ class App extends Component {
 		const panelContent = [];
 		
 		if(gameStatus === "win") {
-			 panelContent.push(<span className="animated infinite pulse">Hai vinto!</span>);
-			 panelContent.push(<div className={" "}>
+			 panelContent.push(<Panel>
+					<span className="animated infinite pulse">Hai vinto!</span>
+					<div className={" "}>
 						<Button 
 							key="renderPlayAgainBtn" 
 							className="button fa fa-play"
-							onClick={() => gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )} 
+							onClick={() => {
+				 				resetTimer(timer)
+				 				gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )
+			 				}} 
 							value="Play again" 
 						/>
 						<Button 
@@ -42,16 +46,18 @@ class App extends Component {
 							onClick={() => gameExit()} 
 						value="Home" 
 						/>
-					</div>);
+					</div>
+			</Panel>);
 		}
 		else if(gameStatus === "pause") {
-			 panelContent.push(<Button 
+			 panelContent.push(<Panel>
+					<Button 
 							key="renderCloseBtn" 
 							className="button close fa fa-times-circle-o"
 							onClick={() => gameResume()} 
 							value="Close" 
-						/>);
-			 panelContent.push(<div className={" "}>
+						/>
+						<div className={" "}>
 						<Button 
 							key="renderResumeBtn" 
 							className="button fa fa-play"
@@ -73,7 +79,8 @@ class App extends Component {
 							onClick={() => gameExit()} 
 						value="Home" 
 						/>
-					</div>);
+					</div>
+				</Panel>);
 		}
 			
 		return(
@@ -81,9 +88,7 @@ class App extends Component {
 				<Games />
 				<Topbar />
 				<Board />
-				<Panel>
-					{panelContent}
-				</Panel>
+				{panelContent}
 			</div>
 		)
 	}
@@ -99,7 +104,6 @@ Games.propTypes = {
 	gameResume: PropTypes.func,
 	resetTimer: PropTypes.func,
 	gameStatus: PropTypes.string,
-	panelStatus: PropTypes.string,
 	timer: PropTypes.number
 }
 
@@ -108,7 +112,6 @@ const mapStateToProps = state => ({
 	selectedGameMode: getSelectedGameMode(state),
 	selectedGameDifficult: getSelectedGameDifficult(state),
 	gameStatus: getGameStatus(state),
-	panelStatus: getPanelStatus(state),
 	timer: getTimer(state.timer)
 })
 

@@ -95,6 +95,12 @@ export const notifyAllSquaresFounded = () => dispatch => {
 		}) 
 }
 
+export const notifySquaresFounded = () => dispatch => {
+		dispatch({
+			type: types.SQUARES_FOUNDED
+		}) 
+}
+
 export const clickSquare = squareId => dispatch => {
 	dispatch({
 			type: types.CLICK_SQUARE,

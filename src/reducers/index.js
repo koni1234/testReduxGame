@@ -3,15 +3,14 @@ import * as ACTIONS from '../constants/ActionTypes'
 import games, * as fromGames from './games'
 import board from './board'
 import topbar, * as fromTopbar from './topbar'
-import panel, * as fromPanel from './panel'
-import timer, * as fromTimer from './timer'
+import timer from './timer'
 
 const initialState = {
 	selectedGame: "",
 	selectedGameMode: "",
 	selectedGameDifficult: "",
 	gameStatus: "",
-	panelStatus:"",
+	score: -1,
 	games: {}
 }
 
@@ -66,16 +65,29 @@ const gameStatus = (state = initialState.gameStatus, action) => {
   }
 }
 
+const score = (state = initialState.score, action) => {
+	switch(action.type) {
+    case ACTIONS.GAME_EXIT: 
+			return initialState.score
+    case ACTIONS.GAME_INIT: 
+			return 0
+    case ACTIONS.SQUARES_FOUNDED: 
+			return state + 20
+		default:
+			return state
+	}
+}
+
 export default combineReducers({
 	board,
 	games,
-	panel,
 	topbar,
+	timer,
 	selectedGame,
 	selectedGameMode,
-	selectedGameDifficult	,
+	selectedGameDifficult,
 	gameStatus,
-	timer
+	score
 })
 
 const getAllGames = state => {
@@ -94,12 +106,10 @@ export const getSelectedGameDifficult = (state = initialState) =>
 export const getGameStatus = (state = initialState) =>
   state.gameStatus
 
-export const getGamesList = (state = initialState) => getAllGames(state)
+export const getScore = (state = initialState) =>
+  state.score
 
-export const getPanelStatus = () => {
-  if(fromPanel.getVisibility()) return "visible" 
-	return "hidden"
-}
+export const getGamesList = (state = initialState) => getAllGames(state)
 
 export const getTopbarStatus = () => {
   if(fromTopbar.getVisibility()) return "visible" 

@@ -5,6 +5,7 @@ import { gamePause } from '../actions'
 import { getVisibility } from '../reducers/topbar'
 import { getGameStatus } from '../reducers/index'
 import Timer from '../components/Timer'
+import Score from '../components/Score'
 import Button from '../components/Button' 
 
 class Topbar extends Component {
@@ -21,6 +22,8 @@ class Topbar extends Component {
 			value="Pause" 
 		/>)							
 		
+		output.push(<Score />)
+			
 		if(gameStatus && gameStatus !== "" ) {
 			output.push(<Timer pause={(gameStatus === "play" ) ? false : true }/>)
 		}

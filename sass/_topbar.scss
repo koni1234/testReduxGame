@@ -30,18 +30,28 @@
 			font-size: 5vh;
 		}
 	}
-}
-/* 
+	
+	.timer {
+		justify-content: flex-end;
+		align-items: center;
+		display: flex;
 
-.topBar .points {
+		span {
+			font-size: 5vh;
+			padding: 0 2.5vw;
+		}
+	}
+	
+	.score {
     justify-content: flex-end;
     align-items: center;
     flex-grow: 1;
     display: flex;
-}
 
-.topBar .points span {
-	font-size: 4vh;
-	color: gold;
-	padding: 0 2.5vw;
-}*/
+		span {
+			font-size: 4vh;
+			color: gold;
+			padding: 0 2.5vw;
+		}
+	}
+}
