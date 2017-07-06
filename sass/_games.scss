@@ -67,6 +67,7 @@
 		position: absolute;
 		left: 0;
     overflow: hidden;	
+		-webkit-transform: translate3d(0, 0, 0);
 	}
 	
 	.gameDifficultSelection,
@@ -83,6 +84,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		-webkit-transform: translate3d(0, 0, 0);
 		
 		button {
 			background: none;

@@ -10,7 +10,7 @@ body {
 }
 
 h1 , h2, h3 {
-	transform: translate3d(0, 0, 0);
+	-webkit-transform: translate3d(0, 0, 0);
 	text-transform: uppercase;
 	transition: filter .6s ease;
 	font-size: 5vh;

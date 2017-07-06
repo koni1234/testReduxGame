@@ -30,7 +30,10 @@ class Timer extends Component {
 	
 	componentWillUnmount(){
 		const { stopTimer , timer } = this.props;
-		stopTimer(timer)
+		
+		if(timer) {
+			stopTimer(timer)
+		}
 	}
 	
 	render() {

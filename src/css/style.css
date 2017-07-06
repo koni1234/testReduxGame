@@ -2679,7 +2679,8 @@
     text-align: center;
     position: absolute;
     left: 0;
-    overflow: hidden; }
+    overflow: hidden;
+    -webkit-transform: translate3d(0, 0, 0); }
   .games .gameDifficultSelection,
   .games .gameModeSelection {
     z-index: 2;
@@ -2693,7 +2694,8 @@
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center; }
+    align-items: center;
+    -webkit-transform: translate3d(0, 0, 0); }
     .games .gameDifficultSelection button,
     .games .gameModeSelection button {
       background: none;
@@ -2727,7 +2729,7 @@ body {
   box-sizing: border-box; }
 
 h1, h2, h3 {
-  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
   text-transform: uppercase;
   transition: filter .6s ease;
   font-size: 5vh; }

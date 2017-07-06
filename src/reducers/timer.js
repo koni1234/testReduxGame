@@ -3,7 +3,7 @@ import { START_TIMER, STOP_TIMER, RESET_TIMER , INCREMENT_TIMER , DECREMENT_TIME
 const initialState = { 
 	pause: false,
 	mode: "timer",
-	startTime: -1,
+	startTime: 0,
   startedAt: -1,
   stoppedAt: -1,
 	time: 0,
@@ -21,7 +21,7 @@ const timer = (state = initialState, action) => {
 		case START_TIMER:
 			return {
         ...state,
-        startTime: (action.startTime) ? action.startTime : 0,
+        startTime: (action.startTime) ? action.startTime : state.startTime,
         startedAt: action.now,
 				stoppedAt: -1,
 				timer: action.timer,
@@ -40,7 +40,9 @@ const timer = (state = initialState, action) => {
 		case RESET_TIMER:
 			return {
         ...state,
-        time: 0
+				startedAt: -1,
+				stoppedAt: -1,
+        time: (state.startTime) ? state.startTime : 0,
       }
 		default:
       return state
