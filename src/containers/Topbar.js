@@ -22,10 +22,11 @@ class Topbar extends Component {
 			value="Pause" 
 		/>)							
 		
-		output.push(<Score />)
+		output.push(<Score key="renderScore" />)
 			
 		if(gameStatus && gameStatus !== "" ) {
 			output.push(<Timer 
+				key="renderTimer"
 				mode={(gameMode === "time") ? "countdown" : "timer"} 
 				startTime= {(gameMode === "time") ? 60 : 0 } 
 				pause={(gameStatus === "play" ) ? false : true }

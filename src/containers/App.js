@@ -31,12 +31,14 @@ class App extends Component {
 	
 	render() { 
 		const { time , score , timer , resetTimer , gameResume , gameStatus , gameInit, gameExit, selectedGame, selectedGameMode , selectedGameDifficult } = this.props;
+		const panel = [];
 		const panelContent = [];
 		
-		if(gameStatus === "win" || gameStatus === "lose") {
-			 panelContent.push(<Panel>
-					<span className="animated infinite pulse">{(gameStatus === "win") ? "Hai vinto!" : "Hai perso"}</span>
-			 		<Counter
+		if(gameStatus === "win") {
+			panelContent.push(<span  key="renderMsg" className="animated infinite pulse">Hai vinto!</span>)
+			if(selectedGameMode ==="time") {
+				panelContent.push(<Counter
+						key="renderCounterS"
 						from={time} 
 						units="seconds"
 						to={0} 
@@ -45,16 +47,20 @@ class App extends Component {
 						className="animated fadeOut"
 						duration={2500}
 						refreshInterval={10}
-					/>
+					/>)
+			}
+			panelContent.push(
 					<Counter
 						from={0} 
 						className="animated zoomScaleIn"
 						to={score} 
+						key="renderCounter"
 						units="points"
 						duration={2500}
 						refreshInterval={10}
-					/>
-					<div className={" "}>
+					/>)
+			panelContent.push(
+					<div key="renderBtns" className={" "}>
 						<Button 
 							key="renderPlayAgainBtn" 
 							className="button fa fa-play"
@@ -70,18 +76,47 @@ class App extends Component {
 							onClick={() => gameExit()} 
 						value="Home" 
 						/>
-					</div>
-			</Panel>);
+					</div>)
 		}
+		else if(gameStatus === "lose") {
+			panelContent.push(<span key="renderMsg" className="animated infinite pulse">Hai perso!</span>)
+			panelContent.push(
+					<Counter
+						from={0} 
+						className="animated zoomScaleIn"
+						to={score} 
+						key="renderCounter"
+						units="points"
+						duration={2500}
+						refreshInterval={10}
+					/>)
+			panelContent.push(
+					<div key="renderBtns" className={" "}>
+						<Button 
+							key="renderPlayAgainBtn" 
+							className="button fa fa-play"
+							onClick={() => {
+				 				resetTimer(timer)
+				 				gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )
+			 				}} 
+							value="Play again" 
+						/>
+						<Button 
+							key="renderHomeBtn" 
+							className="button fa fa-home"
+							onClick={() => gameExit()} 
+						value="Home" 
+						/>
+					</div>)
+	}
 		else if(gameStatus === "pause") {
-			 panelContent.push(<Panel>
-					<Button 
+			 panelContent.push(<Button 
 							key="renderCloseBtn" 
 							className="button close fa fa-times-circle-o"
 							onClick={() => gameResume()} 
 							value="Close" 
-						/>
-						<div className={" "}>
+						/>)
+			 panelContent.push(<div key="renderBtns" className={" "}>
 						<Button 
 							key="renderResumeBtn" 
 							className="button fa fa-play"
@@ -103,16 +138,20 @@ class App extends Component {
 							onClick={() => gameExit()} 
 						value="Home" 
 						/>
-					</div>
-				</Panel>);
+					</div>);
 		}
+		
+		if(gameStatus === "win" || gameStatus === "lose" || gameStatus === "pause") {
+			panel.push(<Panel key="renderPanel">{panelContent}</Panel>)
+		}
+		
 			
 		return(
 			<div>
-				<Games />
-				<Topbar />
-				<Board />
-				{panelContent}
+				<Games key="renderGames" />
+				<Topbar key="renderTopbar"  />
+				<Board  key="renderBoard" />
+				{panel}
 			</div>
 		)
 	}
