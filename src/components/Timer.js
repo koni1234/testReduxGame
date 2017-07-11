@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { startTimer , stopTimer , notifyTimeUp } from '../actions'
+import { startTimer , stopTimer , notifyTimeUp , resetTimer } from '../actions'
 import { getTime , getTimer } from '../reducers/timer'
 
 class Timer extends Component { 
@@ -29,11 +29,9 @@ class Timer extends Component {
   }
 	
 	componentWillUnmount(){
-		const { stopTimer , timer } = this.props;
-		
-		if(timer) {
-			stopTimer(timer)
-		}
+		const { resetTimer , timer } = this.props;
+		 
+		resetTimer(timer)
 	}
 	
 	render() {
@@ -52,7 +50,8 @@ Timer.propTypes = {
 		startTime: PropTypes.number,
 		startTimer: PropTypes.func,
 		stopTimer: PropTypes.func,
-		notifyTimeUp: PropTypes.func
+		notifyTimeUp: PropTypes.func,
+		resetTimer: PropTypes.func
 }
 
 const mapStateToProps = state => ({
@@ -63,6 +62,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
 	startTimer,
 	stopTimer,
+	resetTimer,
 	notifyTimeUp
 }
 

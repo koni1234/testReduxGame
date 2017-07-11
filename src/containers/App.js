@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { gameInit , gameLose, gameWin , gameExit , gameResume , resetTimer } from '../actions'
+import { squaresShuffle, gameInit , gameLose, gameWin , gameExit , gameResume , restartTimer } from '../actions'
 import { getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus , getScore } from '../reducers/index'
 import { getTimer, getTime } from '../reducers/timer'
 import Games from './Games'
@@ -14,23 +14,29 @@ import Button from '../components/Button'
 class App extends Component {
  
   componentWillReceiveProps(nextProps) {
-		const { gameLose , gameWin, gameInit , selectedGame, selectedGameMode , selectedGameDifficult } = nextProps;
+		const { time , squaresShuffle, gameLose , gameWin, gameInit , selectedGame, selectedGameMode , selectedGameDifficult } = nextProps;
 		const nextGameStatus = nextProps.gameStatus
 		const { gameStatus } = this.props;
 		
 		if(selectedGame && selectedGameMode && selectedGameDifficult && gameStatus === "" ) {
 			gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )
 		}
-		if(nextGameStatus === "win" && gameStatus !== nextGameStatus) {
+		else if(nextGameStatus === "win" && gameStatus !== nextGameStatus) {
 			gameWin()
 		}
-		if(nextGameStatus === "lose" && gameStatus !== nextGameStatus) {
+		else if(nextGameStatus === "lose" && gameStatus !== nextGameStatus) {
 			gameLose()
+		}
+		else if(time && gameStatus === "play") { 
+			//shuffle
+			let seconds = 15; //ogni 15 secondi provo a fare shuffle
+			let tryShuffle = ( time % seconds === 0 && time !== 0 )  ? true : false;
+			if( tryShuffle && Math.random() >= 0.5) squaresShuffle()
 		}
   }
 	
 	render() { 
-		const { time , score , timer , resetTimer , gameResume , gameStatus , gameInit, gameExit, selectedGame, selectedGameMode , selectedGameDifficult } = this.props;
+		const { time , score , timer , restartTimer , gameResume , gameStatus , gameInit, gameExit, selectedGame, selectedGameMode , selectedGameDifficult } = this.props;
 		const panel = [];
 		const panelContent = [];
 		
@@ -65,7 +71,7 @@ class App extends Component {
 							key="renderPlayAgainBtn" 
 							className="button fa fa-play"
 							onClick={() => {
-				 				resetTimer(timer)
+				 				restartTimer(timer)
 				 				gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )
 			 				}} 
 							value="Play again" 
@@ -96,7 +102,7 @@ class App extends Component {
 							key="renderPlayAgainBtn" 
 							className="button fa fa-play"
 							onClick={() => {
-				 				resetTimer(timer)
+				 				restartTimer(timer)
 				 				gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )
 			 				}} 
 							value="Play again" 
@@ -127,7 +133,7 @@ class App extends Component {
 							key="renderRestartBtn" 
 							className="button fa fa-repeat"
 							onClick={() => {
-									resetTimer(timer)
+									restartTimer(timer)
 									gameInit(selectedGame, selectedGameMode ,selectedGameDifficult )	 
 							}} 
 							value="Restart" 
@@ -167,10 +173,11 @@ Games.propTypes = {
 	gameLose: PropTypes.func,
 	gameExit: PropTypes.func,
 	gameResume: PropTypes.func,
-	resetTimer: PropTypes.func,
+	restartTimer: PropTypes.func,
 	gameStatus: PropTypes.string,
 	timer: PropTypes.number,
-	time: PropTypes.number
+	time: PropTypes.number,
+	squaresShuffle: PropTypes.func
 }
 
 const mapStateToProps = state => ({
@@ -189,7 +196,8 @@ const mapDispatchToProps = {
 	gameLose,
 	gameExit,
 	gameResume,
-	resetTimer
+	restartTimer,
+	squaresShuffle
 }
 
 export default connect(

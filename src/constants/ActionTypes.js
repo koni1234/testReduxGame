@@ -14,12 +14,15 @@ export const GAME_EXIT = 'GAME_EXIT'
 export const CLICK_SQUARE = 'CLICK_SQUARE'
 export const SQUARES_FOUNDED = 'SQUARES_FOUNDED'
 export const ALL_SQUARES_FOUNDED = 'ALL_SQUARES_FOUNDED'
+export const SQUARES_SHUFFLE = 'SQUARES_SHUFFLE'
+export const SQUARES_SHUFFLE_END = 'SQUARES_SHUFFLE_END'
 //timer
 export const START_TIMER = 'START_TIMER'
 export const DECREMENT_TIMER = 'DECREMENT_TIMER'
 export const INCREMENT_TIMER = 'INCREMENT_TIMER'
 export const TIME_UP = 'TIME_UP'
 export const STOP_TIMER = 'STOP_TIMER'
+export const RESTART_TIMER = 'RESTART_TIMER'
 export const RESET_TIMER = 'RESET_TIMER'
 //counter 
 

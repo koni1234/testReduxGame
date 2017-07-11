@@ -114,6 +114,17 @@ export const clickSquare = squareId => dispatch => {
 	})
 }
 
+export const squaresShuffle = () => dispatch => {
+		dispatch({
+			type: types.SQUARES_SHUFFLE
+		}) 
+}
+
+export const notifyShuffleEnd = () => dispatch => {
+		dispatch({
+			type: types.SQUARES_SHUFFLE_END
+		}) 
+}
 
 const incrementTimer = () => ({
 	type: types.INCREMENT_TIMER,
@@ -153,6 +164,14 @@ export const resetTimer = timer => dispatch => {
 	clearInterval(timer);
 	dispatch({
     type: types.RESET_TIMER,
+    now: new Date().getTime()
+	})
+}
+
+export const restartTimer = timer => dispatch => {
+	clearInterval(timer);
+	dispatch({
+    type: types.RESTART_TIMER,
     now: new Date().getTime()
 	})
 }

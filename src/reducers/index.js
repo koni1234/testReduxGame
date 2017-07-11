@@ -11,7 +11,8 @@ const initialState = {
 	selectedGameDifficult: "",
 	gameStatus: "",
 	score: -1,
-	games: {}
+	games: {},
+	timer: {}
 }
 
 const selectedGame = (state = initialState.selectedGame, action) => {

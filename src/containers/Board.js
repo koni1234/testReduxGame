@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { clickSquare , notifyAllSquaresFounded , notifySquaresFounded } from '../actions'
+import { clickSquare , notifyAllSquaresFounded , notifySquaresFounded , notifyShuffleEnd } from '../actions'
 import { getStatus , getSquares , getFoundedSquares , getClickedSquare , getLastClickedSquare , getCells , getRows } from '../reducers/board'
 import Row from '../components/Row'
 import Square from '../components/Square'
@@ -9,7 +9,7 @@ import Square from '../components/Square'
 class Board extends Component {
  
   componentWillReceiveProps(nextProps) {
-		const { status, notifyAllSquaresFounded , squares, notifySquaresFounded } = nextProps;
+		const { status, notifyAllSquaresFounded , squares, notifySquaresFounded , notifyShuffleEnd } = nextProps;
 		const nextFoundedSquares = nextProps.foundedSquares;
 		const { foundedSquares } = this.props;
 		
@@ -19,11 +19,23 @@ class Board extends Component {
 		if(status!=="allSquaresFounded" && nextFoundedSquares.length > 0 && squares.length === nextFoundedSquares.length ) {
 			notifyAllSquaresFounded()
 		}
+		if(status === "shuffleEnd") {
+			const board = document.getElementById('board')
+			board.removeEventListener('animationend', notifyShuffleEnd );
+		}
+		if(status === "onShuffle") {
+			const board = document.getElementById('board')
+			board.addEventListener('animationend', notifyShuffleEnd );
+		}
   }
 	
 	render() {
-		const { cells , rows ,squares , clickSquare , lastClickedSquare } = this.props;
-		const className= (squares.length) ? "board active animated fadeIn" : "board animated fadeOut";
+		const { status , cells , rows ,squares , clickSquare , lastClickedSquare } = this.props;
+		let className= "board animated ";
+		if(status === "onShuffle") className += "active shuffle"
+		else if(status !== "") className += "active "
+		else if(squares.length) className += "active fadeIn" 
+		else className += "fadeOut";
 		
 		let output = [];
 		for(let i = 0; i<rows; i++) {
@@ -43,7 +55,7 @@ class Board extends Component {
 				output.push(<Row key={"row-"+i}>{output2}</Row>);
 		}
   
-		return(<div className={className}>{output}</div>)
+		return(<div id="board" className={className}>{output}</div>)
 	}
 }
 
@@ -65,7 +77,8 @@ Board.propTypes = {
 	clickSquare: PropTypes.func,
 	status: PropTypes.string,
 	notifyAllSquaresFounded: PropTypes.func,
-	notifySquaresFounded: PropTypes.func
+	notifySquaresFounded: PropTypes.func,
+	notifyShuffleEnd: PropTypes.func
 }
 
 
@@ -82,7 +95,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
 	clickSquare,
 	notifyAllSquaresFounded,
-	notifySquaresFounded
+	notifySquaresFounded,
+	notifyShuffleEnd
 }
 
 export default connect(

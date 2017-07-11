@@ -1,4 +1,4 @@
-import { GAME_INIT, GAME_EXIT , CLICK_SQUARE , ALL_SQUARES_FOUNDED } from '../constants/ActionTypes'
+import { GAME_INIT, GAME_EXIT , CLICK_SQUARE , ALL_SQUARES_FOUNDED , SQUARES_SHUFFLE , SQUARES_SHUFFLE_END } from '../constants/ActionTypes'
 
 const initialState = { 
 		rows:0,
@@ -47,6 +47,18 @@ const board = (state = initialState, action) => {
         clickedSquare: action.clickedSquare,
         lastClickedSquare: clickedSquare,
 				squares: squares
+      })
+		case SQUARES_SHUFFLE: 
+			return Object.assign({}, state, {
+        status: "onShuffle"
+      })
+		case SQUARES_SHUFFLE_END: 
+			const squaresS = state.squares.slice();
+			return Object.assign({}, state, {
+				squares: squaresS.sort(function() { return 0.5 - Math.random() }),
+				clickedSquare: -1,
+				lastClickedSquare: -1,
+        status: "shuffleEnd"
       })
 		default:
       return state

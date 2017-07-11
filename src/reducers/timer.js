@@ -1,4 +1,4 @@
-import { START_TIMER, STOP_TIMER, RESET_TIMER , INCREMENT_TIMER , DECREMENT_TIMER } from '../constants/ActionTypes'
+import { START_TIMER, STOP_TIMER, RESET_TIMER , INCREMENT_TIMER , DECREMENT_TIMER , RESTART_TIMER } from '../constants/ActionTypes'
 
 const initialState = { 
 	pause: false,
@@ -21,11 +21,11 @@ const timer = (state = initialState, action) => {
 		case START_TIMER:
 			return {
         ...state,
-        startTime: (action.startTime) ? action.startTime : state.startTime,
+        startTime: (action.startTime && action.startTime > -1) ? action.startTime : state.startTime,
         startedAt: action.now,
 				stoppedAt: -1,
 				timer: action.timer,
-				time: (action.startTime) ? action.startTime : state.time,
+				time: (action.startTime && action.startTime > -1) ? action.startTime : state.time,
       }
 		case INCREMENT_TIMER:
 			return {
@@ -37,13 +37,16 @@ const timer = (state = initialState, action) => {
         ...state,
         time: state.time - 1
       }
-		case RESET_TIMER:
+		case RESTART_TIMER:
 			return {
         ...state,
 				startedAt: -1,
 				stoppedAt: -1,
+        startTime: (state.startTime) ? state.startTime : 0,
         time: (state.startTime) ? state.startTime : 0,
       }
+		case RESET_TIMER:
+			return initialState
 		default:
       return state
   }
