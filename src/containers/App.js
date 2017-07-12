@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { squaresShuffle, gameInit , gameLose, gameWin , gameExit , gameResume , restartTimer } from '../actions'
 import { getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus , getScore } from '../reducers/index'
-import { getTimer, getTime } from '../reducers/timer'
+import { getStartTime , getTimer, getTime } from '../reducers/timer'
 import Games from './Games'
 import Board from './Board'
 import Topbar from './Topbar'
@@ -14,7 +14,7 @@ import Button from '../components/Button'
 class App extends Component {
  
   componentWillReceiveProps(nextProps) {
-		const { time , squaresShuffle, gameLose , gameWin, gameInit , selectedGame, selectedGameMode , selectedGameDifficult } = nextProps;
+		const { time , startTime , squaresShuffle, gameLose , gameWin, gameInit , selectedGame, selectedGameMode , selectedGameDifficult } = nextProps;
 		const nextGameStatus = nextProps.gameStatus
 		const { gameStatus } = this.props;
 		
@@ -27,10 +27,10 @@ class App extends Component {
 		else if(nextGameStatus === "lose" && gameStatus !== nextGameStatus) {
 			gameLose()
 		}
-		else if(time && gameStatus === "play") { 
+		else if(time && time!==startTime && gameStatus === "play") { 
 			//shuffle
 			let seconds = 15; //ogni 15 secondi provo a fare shuffle
-			let tryShuffle = ( time % seconds === 0 && time !== 0 )  ? true : false;
+			let tryShuffle = ( time % seconds === 0 )  ? true : false;
 			if( tryShuffle && Math.random() >= 0.5) squaresShuffle()
 		}
   }
@@ -176,6 +176,7 @@ Games.propTypes = {
 	restartTimer: PropTypes.func,
 	gameStatus: PropTypes.string,
 	timer: PropTypes.number,
+	startTime: PropTypes.number,
 	time: PropTypes.number,
 	squaresShuffle: PropTypes.func
 }
@@ -187,6 +188,7 @@ const mapStateToProps = state => ({
 	score: getScore(state),
 	gameStatus: getGameStatus(state),
 	timer: getTimer(state.timer),
+	startTime: getStartTime(state.timer),
 	time: getTime(state.timer)
 })
 

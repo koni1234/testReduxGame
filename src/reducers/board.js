@@ -1,4 +1,4 @@
-import { GAME_INIT, GAME_EXIT , CLICK_SQUARE , ALL_SQUARES_FOUNDED , SQUARES_SHUFFLE , SQUARES_SHUFFLE_END } from '../constants/ActionTypes'
+import { GAME_INIT, GAME_EXIT , CLICK_SQUARE , ALL_SQUARES_FOUNDED , SQUARES_SHUFFLE , SQUARES_SHUFFLE_END , BOARD_READY } from '../constants/ActionTypes'
 
 const initialState = { 
 		rows:0,
@@ -21,6 +21,10 @@ const board = (state = initialState, action) => {
 				...state,
 				...initialState
 			}
+		case BOARD_READY:
+			return Object.assign({}, state, {
+        status: "ready"
+      })
 		case ALL_SQUARES_FOUNDED:
 			return Object.assign({}, state, {
         status: "allSquaresFounded"

@@ -57,3 +57,5 @@ export default timer
 export const getTimer = (state = initialState) => state.timer
 
 export const getTime = (state = initialState) => state.time
+
+export const getStartTime = (state = initialState) => state.startTime

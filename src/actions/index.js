@@ -95,6 +95,12 @@ export const gameLose = () => dispatch => {
 		}) 
 }
 
+export const notifyBoardReady = () => dispatch => { 
+		dispatch({
+			type: types.BOARD_READY
+		}) 
+}
+
 export const notifyAllSquaresFounded = () => dispatch => { 
 		dispatch({
 			type: types.ALL_SQUARES_FOUNDED

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { clickSquare , notifyAllSquaresFounded , notifySquaresFounded , notifyShuffleEnd } from '../actions'
+import { clickSquare , notifyBoardReady , notifyAllSquaresFounded , notifySquaresFounded , notifyShuffleEnd } from '../actions'
 import { getStatus , getSquares , getFoundedSquares , getClickedSquare , getLastClickedSquare , getCells , getRows } from '../reducers/board'
 import Row from '../components/Row'
 import Square from '../components/Square'
@@ -9,10 +9,13 @@ import Square from '../components/Square'
 class Board extends Component {
  
   componentWillReceiveProps(nextProps) {
-		const { status, notifyAllSquaresFounded , squares, notifySquaresFounded , notifyShuffleEnd } = nextProps;
+		const { status, notifyBoardReady , notifyAllSquaresFounded , squares, notifySquaresFounded , notifyShuffleEnd } = nextProps;
 		const nextFoundedSquares = nextProps.foundedSquares;
 		const { foundedSquares } = this.props;
 		
+		if(squares.length && status === "") {
+			notifyBoardReady()
+		}
 		if( nextFoundedSquares.length > 0 && nextFoundedSquares.length > foundedSquares.length ) {
 			notifySquaresFounded()
 		}
@@ -32,9 +35,7 @@ class Board extends Component {
 	render() {
 		const { status , cells , rows ,squares , clickSquare , lastClickedSquare } = this.props;
 		let className= "board animated ";
-		if(status === "onShuffle") className += "active shuffle"
-		else if(status !== "") className += "active "
-		else if(squares.length) className += "active fadeIn" 
+		if(squares.length) className += "active fadeIn" 
 		else className += "fadeOut";
 		
 		let output = [];
@@ -52,7 +53,7 @@ class Board extends Component {
 						onClick={() => clickSquare( squareId )}
 					/>);
 				}
-				output.push(<Row key={"row-"+i}>{output2}</Row>);
+				output.push(<Row key={"row-"+i} className={(status === "onShuffle") ? "animated shuffle" : ""}>{output2}</Row>);
 		}
   
 		return(<div id="board" className={className}>{output}</div>)
@@ -78,7 +79,8 @@ Board.propTypes = {
 	status: PropTypes.string,
 	notifyAllSquaresFounded: PropTypes.func,
 	notifySquaresFounded: PropTypes.func,
-	notifyShuffleEnd: PropTypes.func
+	notifyShuffleEnd: PropTypes.func,
+	notifyBoardReady: PropTypes.func
 }
 
 
@@ -94,6 +96,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
 	clickSquare,
+	notifyBoardReady,
 	notifyAllSquaresFounded,
 	notifySquaresFounded,
 	notifyShuffleEnd

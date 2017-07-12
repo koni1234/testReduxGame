@@ -11,6 +11,7 @@ export const GAME_WIN = 'GAME_WIN'
 export const GAME_LOSE = 'GAME_LOSE'
 export const GAME_EXIT = 'GAME_EXIT'
 //board
+export const BOARD_READY = 'BOARD_READY'
 export const CLICK_SQUARE = 'CLICK_SQUARE'
 export const SQUARES_FOUNDED = 'SQUARES_FOUNDED'
 export const ALL_SQUARES_FOUNDED = 'ALL_SQUARES_FOUNDED'
