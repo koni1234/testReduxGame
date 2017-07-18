@@ -2453,6 +2453,9 @@
   .board .row {
     flex-grow: 1;
     display: flex; }
+  .board.reset .square img {
+    transition-duration: 0s;
+    transition-delay: 0s; }
   .board .square {
     background: #fff;
     border: 1px solid #999;
@@ -2527,7 +2530,8 @@
   align-items: center;
   border-bottom: 1px solid #999;
   color: white;
-  background: #333; }
+  background: #333;
+  -webkit-transform: translate3d(0, 0, 0); }
   .topbar.active {
     display: flex;
     z-index: 2; }
@@ -2626,7 +2630,8 @@
 
 */
 .gamesWrapper {
-  display: none; }
+  display: none;
+  -webkit-transform: translate3d(0, 0, 0); }
   .gamesWrapper.active {
     display: block;
     z-index: 2; }

@@ -101,6 +101,12 @@ export const notifyBoardReady = () => dispatch => {
 		}) 
 }
 
+export const resetBoard = () => dispatch => {
+		dispatch({
+			type: types.RESET_BOARD
+		}) 
+}
+
 export const notifyAllSquaresFounded = () => dispatch => { 
 		dispatch({
 			type: types.ALL_SQUARES_FOUNDED

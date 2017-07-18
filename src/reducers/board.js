@@ -1,4 +1,4 @@
-import { GAME_INIT, GAME_EXIT , CLICK_SQUARE , ALL_SQUARES_FOUNDED , SQUARES_SHUFFLE , SQUARES_SHUFFLE_END , BOARD_READY } from '../constants/ActionTypes'
+import { GAME_INIT, GAME_EXIT , CLICK_SQUARE , ALL_SQUARES_FOUNDED , RESET_BOARD, SQUARES_SHUFFLE , SQUARES_SHUFFLE_END , BOARD_READY } from '../constants/ActionTypes'
 
 const initialState = { 
 		rows:0,
@@ -14,7 +14,23 @@ const board = (state = initialState, action) => {
     case GAME_INIT:
 			return {
 				...initialState,
-				...action.board
+				squares: action.board.squares,
+				rows: action.board.rows,
+				cells: action.board.cells
+			}
+		case RESET_BOARD:
+			const squaresB = state.squares.slice();
+			return {
+				...state ,
+				clickedSquare:-1,
+				lastClickedSquare: -1,
+				status: "reset",
+				squares: squaresB.filter( square => {
+					square.visible = false;
+					square.found = false;
+					square.firstView = false;
+					return square
+				})
 			}
     case GAME_EXIT:
 			return {
@@ -59,7 +75,10 @@ const board = (state = initialState, action) => {
 		case SQUARES_SHUFFLE_END: 
 			const squaresS = state.squares.slice();
 			return Object.assign({}, state, {
-				squares: squaresS.sort(function() { return 0.5 - Math.random() }),
+				squares: squaresS.filter( square => {
+					if(!square.found && square.visible) square.visible = false;
+					return square
+				}).sort(function() { return 0.5 - Math.random() }),
 				clickedSquare: -1,
 				lastClickedSquare: -1,
         status: "shuffleEnd"

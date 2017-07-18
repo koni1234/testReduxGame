@@ -10,6 +10,7 @@
 	border-bottom: 1px solid #999;
 	color: white;
 	background: #333;
+	-webkit-transform: translate3d(0, 0, 0);
 	
 	&.active {
 		display: flex;

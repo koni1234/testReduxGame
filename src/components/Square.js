@@ -2,8 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const Square = ({ value , found , visible , data , lastClicked , onClick }) => {
-	const className = (visible || found) ? "square visible" : "square";
-	const classNameSpan = (visible || found) ? "animated slideInUp" : "";
+	let className = "square";
+	if(found) className += " visible found" 
+	else if (visible) className += " visible"
+	const classNameSpan = (visible && !found) ? "animated slideInUp" : "";
 	const classNameImg = (lastClicked && !found && !visible) ? "animated fadeInOut" : "";
 	 
 		return (

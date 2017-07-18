@@ -63,6 +63,8 @@ const gameStatus = (state = initialState.gameStatus, action) => {
 			return "win"
 		case ACTIONS.TIME_UP:
 			return "lose"
+    case ACTIONS.RESET_BOARD: 
+			return initialState.gameStatus
     default:
       return state
   }

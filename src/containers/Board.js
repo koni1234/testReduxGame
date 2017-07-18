@@ -34,8 +34,9 @@ class Board extends Component {
 	
 	render() {
 		const { status , cells , rows ,squares , clickSquare , lastClickedSquare } = this.props;
-		let className= "board animated ";
-		if(squares.length) className += "active fadeIn" 
+		let className= "board animated";
+		if(squares.length) className += " active fadeIn" 
+		if(status === "reset") className += " reset" 
 		else className += "fadeOut";
 		
 		let output = [];

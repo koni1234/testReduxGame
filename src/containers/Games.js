@@ -12,10 +12,10 @@ import GamesList from '../components/GamesList'
 class Games extends Component {
 	
 	render() {
-		const { games, selectGame , selectGameMode , selectGameDifficult , selectedGame, selectedGameMode , selectedGameDifficult , gameStatus } = this.props;
+		const { games, selectGame , selectGameMode , selectGameDifficult , selectedGame, selectedGameMode , selectedGameDifficult } = this.props;
 			
 		return(
-			<GamesList key="renderGamesList" className={(gameStatus === "play") ? "gamesWrapper animated fadeOut" : "gamesWrapper active animated fadeIn"}>
+			<GamesList key="renderGamesList" className={ "gamesWrapper active animated fadeIn"}>
 			{games.map(game => {
 				let btns = [];
 				let animation = "";
@@ -100,8 +100,7 @@ Games.propTypes = {
 	selectGameDifficult: PropTypes.func,
 	selectedGameMode: PropTypes.string,
 	selectedGameDifficult: PropTypes.string,
-	gameInit: PropTypes.func,
-	gameStatus: PropTypes.string
+	gameInit: PropTypes.func
 }
 
 const mapStateToProps = state => ({

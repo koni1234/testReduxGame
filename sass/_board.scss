@@ -19,6 +19,13 @@
 		display: flex;
 	}
 	
+	&.reset {
+		.square img {
+			transition-duration: 0s;
+			transition-delay: 0s;
+		}
+	}
+	
 	.square {
 		background: #fff;
 		border: 1px solid #999;
