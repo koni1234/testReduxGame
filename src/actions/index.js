@@ -1,6 +1,37 @@
 import * as types from '../constants/ActionTypes'
 import storage from '../api/storage'
 
+const checkSession = userData => ({
+  type: types.CHECK_SESSION,
+  userName:userData.userName
+})
+
+export const getUserData = () => dispatch => {
+  storage.getUserData( userData => { 
+		dispatch(checkSession(userData)) 
+	})
+}
+
+export const setUserData = tempName => {
+	//	//if username length ....
+  storage.setUserData( tempName )
+}
+
+export const login = tempName => dispatch => {
+	setUserData( tempName )
+  dispatch({
+		type: types.LOGIN,
+		userName: tempName
+	})
+}
+
+export const checkLoginForm = tempName => dispatch => {
+	dispatch({
+		type: types.CHECK_LOGIN_FORM,
+		tempName
+	})
+}
+
 const gamesList = allGames => ({
   type: types.GAMES_LIST,
   allGames
@@ -197,37 +228,12 @@ export const restartTimer = timer => dispatch => {
 //export const RENDER_GAMES_LIST = 'RENDER_GAMES_LIST'
 // 
 //
-//const checkSession = userData => ({
-//  type: types.CHECK_SESSION,
-//  userData: userData
-//})
-//
-//export const getUserData = () => dispatch => {
-//  storage.getUserData(userData => {
-//    dispatch(checkSession(userData))
-//  })
-//}
-//
-//const login = userName => ({
-//  type: types.LOGIN,
-//  userName: userName
-//})
-//
-//export const setUserData = userName => dispatch => {
-//	//if username length ....
-//  storage.setUserData(userName => {
-//    dispatch(login(userName))
-//  })
-//}
 
+//
+//
 			 
 	
-//export const checkLoginForm = (tempName) => {
-//	return {
-//		type: 'CHECK_LOGIN_FORM',
-//		tempName
-//	}
-//}
+
 //export const renderLoginForm = () => {
 //  	return {
 //		type: 'RENDER_LOGIN_FORM'

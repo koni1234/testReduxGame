@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import * as ACTIONS from '../constants/ActionTypes'
 import games, * as fromGames from './games'
+import users, * as fromUsers from './users'
 import board from './board'
 import topbar, * as fromTopbar from './topbar'
 import timer from './timer'
@@ -84,6 +85,7 @@ const score = (state = initialState.score, action) => {
 }
 
 export default combineReducers({
+	users,
 	board,
 	games,
 	topbar,
@@ -98,6 +100,10 @@ export default combineReducers({
 const getAllGames = state => {
 	return fromGames.getAllGames(state)
 }
+
+//const getUserData = state => {
+//	return fromUsers.getUserData(state)
+//}
 
 export const getSelectedGame = (state = initialState) =>
   state.selectedGame
@@ -115,6 +121,8 @@ export const getScore = (state = initialState) =>
   state.score
 
 export const getGamesList = (state = initialState) => getAllGames(state)
+
+//export const getUserName = (state = initialState) => getUserData(state).userName
 
 export const getTopbarStatus = () => {
   if(fromTopbar.getVisibility()) return "visible" 

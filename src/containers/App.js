@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { squaresShuffle, gameInit , gameLose, gameWin , gameExit , gameResume , restartTimer ,resetBoard } from '../actions'
 import { getSelectedGame , getSelectedGameMode , getSelectedGameDifficult , getGameStatus , getScore } from '../reducers/index'
+import { getUserName } from '../reducers/users'
 import { getStartTime , getTimer, getTime } from '../reducers/timer'
 import Games from './Games'
 import Board from './Board'
 import Topbar from './Topbar'
+import UserPanel from './UserPanel'
 import Panel from '../components/Panel'
 import Counter from '../components/Counter'
 import Button from '../components/Button' 
@@ -36,9 +38,14 @@ class App extends Component {
   }
 	
 	render() { 
-		const { resetBoard, time , score , timer , restartTimer , gameResume , gameStatus , gameInit, gameExit, selectedGame, selectedGameMode , selectedGameDifficult } = this.props;
+		const { username, resetBoard, time , score , timer , restartTimer , gameResume , gameStatus , gameExit , selectedGameMode } = this.props;
+		const userPanel = [];
 		const panel = [];
 		const panelContent = [];
+		
+		if(!username){
+				userPanel.push(<UserPanel key="renderUserPanel" />)
+		}
 		
 		if(gameStatus === "win") {
 			panelContent.push(<span  key="renderMsg" className="animated infinite pulse">Hai vinto!</span>)
@@ -154,9 +161,11 @@ class App extends Component {
 			panel.push(<Panel key="renderPanel">{panelContent}</Panel>)
 		}
 		
+		//{userPanel}
 			
 		return(
 			<div>
+				<UserPanel key="renderUserPanel" />
 				<Games key="renderGames" />
 				<Topbar key="renderTopbar"  />
 				<Board  key="renderBoard" />
@@ -167,6 +176,7 @@ class App extends Component {
 }
 
 Games.propTypes = {
+	username: PropTypes.string,
 	selectedGame: PropTypes.string,
 	selectedGameMode: PropTypes.string,
 	selectedGameDifficult: PropTypes.string,
@@ -186,6 +196,7 @@ Games.propTypes = {
 }
 
 const mapStateToProps = state => ({
+	username: getUserName(state),
 	selectedGame: getSelectedGame(state),
 	selectedGameMode: getSelectedGameMode(state),
 	selectedGameDifficult: getSelectedGameDifficult(state),

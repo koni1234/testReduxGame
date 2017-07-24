@@ -26,9 +26,8 @@ export const TIME_UP = 'TIME_UP'
 export const STOP_TIMER = 'STOP_TIMER'
 export const RESTART_TIMER = 'RESTART_TIMER'
 export const RESET_TIMER = 'RESET_TIMER'
-//counter 
-
-//export const CHECK_SESSION = 'CHECK_SESSION'
-//export const CHECK_SUBMIT_LOGIN_FORM = 'CHECK_SUBMIT_LOGIN_FORM'
-//export const LOGIN = 'LOGIN'
+//session user
+export const CHECK_SESSION = 'CHECK_SESSION'
+export const CHECK_LOGIN_FORM = 'CHECK_LOGIN_FORM'
+export const LOGIN = 'LOGIN'
 //export const LOGOUT = 'LOGOUT'

@@ -7,7 +7,7 @@ import './css/style.css'
 
 
 import thunk from 'redux-thunk'
-import { getGames } from './actions'
+import { getGames , getUserData } from './actions'
 import reducer from './reducers'
 import registerServiceWorker from './registerServiceWorker';
 
@@ -20,6 +20,7 @@ const store = createStore(
 )
 
 store.dispatch(getGames())
+store.dispatch(getUserData())
 
 render(
   <Provider store={store}>
